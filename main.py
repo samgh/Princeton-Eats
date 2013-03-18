@@ -15,11 +15,44 @@
 # limitations under the License.
 #
 import webapp2
+        
+import jinja2
+import os
 
-class MainHandler(webapp2.RequestHandler):
+import george
+import will
+
+jinja = jinja2.Environment(
+    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
+
+class George(webapp2.RequestHandler):
     def get(self):
-        self.response.write('Hello world!')
+        data = george.getData()
+        self.response.write(data)
+
+class Home(webapp2.RequestHandler):
+    def get(self):
+        template = jinja.get_template('templates/home.html')
+        self.response.out.write(template.render({})) 
+
+class Timeline(webapp2.RequestHandler):
+    def get(self):
+        template = jinja.get_template('templates/timeline.html')
+        self.response.out.write(template.render({}))
+
+class TimelinePost(webapp2.RequestHandler):
+    def get(self):
+        self.response.write('Hello TimelinePost!');
+
+class Will(webapp2.RequestHandler):
+    def get(self):
+        data = will.getData()
+        self.response.write(data)
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    ('/george', George),
+    ('/will', Will),
+    ('/timeline', Timeline),
+    ('/timeline/post', TimelinePost),
+    ('/', Home)
 ], debug=True)
