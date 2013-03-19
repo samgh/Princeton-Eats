@@ -14,12 +14,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+import cgi
 import webapp2
-        
+
 import jinja2
 import os
 
 import george
+import models
 import will
 
 jinja = jinja2.Environment(
@@ -40,10 +42,6 @@ class Timeline(webapp2.RequestHandler):
         template = jinja.get_template('templates/timeline.html')
         self.response.out.write(template.render({}))
 
-class TimelinePost(webapp2.RequestHandler):
-    def get(self):
-        self.response.write('Hello TimelinePost!');
-
 class Will(webapp2.RequestHandler):
     def get(self):
         data = will.getData()
@@ -53,6 +51,5 @@ app = webapp2.WSGIApplication([
     ('/george', George),
     ('/will', Will),
     ('/timeline', Timeline),
-    ('/timeline/post', TimelinePost),
     ('/', Home)
 ], debug=True)
