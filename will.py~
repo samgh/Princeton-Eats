@@ -1,0 +1,23 @@
+import urllib
+import urllib2
+import re
+
+def getData():
+    data = parsePage("http://facilities.princeton.edu/dining/_Foodpro/menuSamp.asp?locationNum=01&locationName=Rockefeller+%26+Mathey+Colleges&sName=Princeton+University+Dining+Services&naFlag=1")
+    #return ['will', 'test', 'data']
+    return data
+
+
+def parsePage(page):
+    ref = urllib2.urlopen(page)
+    webpage = ref.read()
+    mealpattern = "Breakfast.*" + "Lunch.*" + "Dinner.*"
+    m = re.search(mealpattern, webpage)
+    if m:
+        print m.group(0)
+    else:
+        print "page not right"
+
+    return webpage
+
+getData()
