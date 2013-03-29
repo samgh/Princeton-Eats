@@ -18,12 +18,48 @@ class Entree:
             s += (a+",")
         s += "\n"
         return s
-        
+
+    def html_string(self):
+        s = "Name:"+self.name + "<br>"
+        s += "Ingredients:"
+        for i in self.ingredients:
+            s += (i+",")
+        s += "<br>Allergens:"
+        for a in self.allergens:
+            s += (a+",")
+        s += "<br><br>"
+        return s
+
 
 class Menu:
     breakfast = []
     lunch = []
     dinner = []
+    def string(self):
+        s = ""
+        s += "Breakfast:\n"
+        for e in self.breakfast:
+            s += e.html_string()
+            s += "Lunch:\n"
+        for e in self.lunch:
+            s += e.html_string()
+            s += "Dinner:\n"
+        for e in self.dinner:
+            s += e.html_string()
+        return s
+    def html_string(self):
+        s = ""
+        s += "<h3>Breakfast:</h3>"
+        for e in self.breakfast:
+            s += e.html_string()
+        s += "<h3>Lunch:</h3>"
+        for e in self.lunch:
+            s += e.html_string()
+        s += "<h3>Dinner:</h3>"
+        for e in self.dinner:
+            s += e.html_string()
+        s.replace(u'\xa0', ' ').encode('utf-8')
+        return s
 
 def getData():
     root = "http://facilities.princeton.edu/dining/_Foodpro/"
@@ -82,13 +118,3 @@ def parseEntreePage(root, page):
     #print vals
     return [ingred, allerg]
 
-m = getData()
-print "Breakfast:--------------------------------------------------"
-for e in m.breakfast:
-    print e.string()
-print "Lunch:------------------------------------------------------"
-for e in m.lunch:
-    print e.string()
-print "Dinner:-----------------------------------------------------"
-for e in m.dinner:
-    print e.string()

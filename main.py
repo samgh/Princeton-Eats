@@ -45,15 +45,8 @@ class Timeline(webapp2.RequestHandler):
 class Will(webapp2.RequestHandler):
     def get(self):
         data = will.getData()
-        self.response.write("Breakfast:<br>")
-        for s in data[0]:
-            self.response.write(s+"<br>")
-        self.response.write("<br>Lunch:<br>")
-        for s in data[1]:
-            self.response.write(s+"<br>")
-        self.response.write("<br>Dinner:<br>")
-        for s in data[2]:
-            self.response.write(s+"<br>")
+        self.response.write(data.html_string())
+        
 
 
 app = webapp2.WSGIApplication([

@@ -44,9 +44,10 @@ class Timeline(webapp2.RequestHandler):
 
 class Will(webapp2.RequestHandler):
     def get(self):
-        self.response.write("working")
         data = will.getData()
         self.response.write(data)
+        
+
 
 app = webapp2.WSGIApplication([
     ('/george', George),
