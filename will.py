@@ -171,5 +171,3 @@ def stripSpace(str):
     while str[bindex-1] == " ":
         bindex -= 1
     return str[findex:bindex]
-
-print getData().string()
