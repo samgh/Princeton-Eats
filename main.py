@@ -35,7 +35,9 @@ class George(webapp2.RequestHandler):
 class Home(webapp2.RequestHandler):
     def get(self):
         template = jinja.get_template('templates/home.html')
-        self.response.out.write(template.render({})) 
+        params = {}
+        params['menu'] = 'test'
+        self.response.out.write(template.render(params)) 
 
 class Timeline(webapp2.RequestHandler):
     def get(self):
@@ -46,8 +48,6 @@ class Will(webapp2.RequestHandler):
     def get(self):
         data = will.getData()
         self.response.write(data.html_string())
-        
-
 
 app = webapp2.WSGIApplication([
     ('/george', George),

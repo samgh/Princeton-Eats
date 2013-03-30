@@ -2,6 +2,17 @@ import datetime
 
 from google.appengine.ext import db
 
+class Entree(db.Model):
+    allergens = db.StringListProperty()
+    ingredients = db.StringListProperty()
+    name = db.StringProperty()
+
+class Meal(db.Model):
+    date = db.DateTimeProperty()
+    diningHall = db.StringProperty()
+    entreeKeys = db.StringListProperty()
+    name = db.StringProperty()
+    
 # Sample model for timeline posts (ended up using Tumblr)
 class TimelinePost(db.Model):
     title = db.StringProperty()
