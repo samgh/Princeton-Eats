@@ -45,7 +45,7 @@ class Timeline(webapp2.RequestHandler):
 class Will(webapp2.RequestHandler):
     def get(self):
         data = will.getData()
-        self.response.write(data)
+        self.response.write(data.html_string())
         
 
 
