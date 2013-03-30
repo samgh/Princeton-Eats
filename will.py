@@ -82,13 +82,16 @@ class Menu:
 
 def getData():
     root = "http://facilities.princeton.edu/dining/_Foodpro/"
-    data = parseMenuPage(root, "http://facilities.princeton.edu/dining/_Foodpro/menuSamp.asp?locationNum=01&locationName=Rockefeller+%26+Mathey+Colleges&sName=Princeton+University+Dining+Services&naFlag=1")
+#    data = parseMenuPage(root, "http://facilities.princeton.edu/dining/_Foodpro/menuSamp.asp?locationNum=01&locationName=Rockefeller+%26+Mathey+Colleges&sName=Princeton+University+Dining+Services&naFlag=1")
+    print "Attempting to open page"
+    data = parseMenuPage(root, "http://facilities.princeton.edu/dining/_Foodpro/menuSamp.asp?locationNum=02&locationName=Butler+%26+Wilson+Colleges&sName=Princeton+University+Dining+Services&naFlag=1")
     return data
 
 
 def parseMenuPage(root, page):
     ref = urllib2.urlopen(page)
     webpage = ref.read()
+    print "Got a menu to parse"
     soup = BeautifulSoup(webpage)
     pt = soup.get_text()
     links = soup.find_all('a')
@@ -105,6 +108,7 @@ def parseMenuPage(root, page):
 def parseMealPage(root, page):
     ref = urllib2.urlopen(page)
     webpage = ref.read()
+    print "Got a meal to parse"
     soup = BeautifulSoup(webpage)
     entrees = soup.find_all('a')
     ents = []
@@ -123,6 +127,7 @@ def parseMealPage(root, page):
 def parseEntreePage(root, page):
     ref = urllib2.urlopen(page)
     webpage = ref.read()
+    print "Got an entree to parse"
     soup = BeautifulSoup(webpage)
     ingred = []
     allerg = []
@@ -171,3 +176,5 @@ def stripSpace(str):
     while str[bindex-1] == " ":
         bindex -= 1
     return str[findex:bindex]
+
+print getData().string()
