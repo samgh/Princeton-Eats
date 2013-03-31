@@ -67,6 +67,7 @@ class Entree:
 
 
 class Menu:
+	date = ""
 	breakfast = []
 	lunch = []
 	dinner = []
@@ -89,7 +90,7 @@ class Menu:
 			s += "----------------------------------------------------------\n"
 		return s
 	def html_string(self):
-		s = ""
+		s = "<h3>" + self.date + "</h3>"
 		s += "<h3>Breakfast:</h3>"
 		for e in self.breakfast:
 			s += e.html_string()
@@ -100,11 +101,11 @@ class Menu:
 		for e in self.dinner:
 			s += e.html_string()
 		# May not be necessary, not liked by ascii
-		s.replace(u'\xa0', ' ').encode('utf-8')
+		#s.replace(u'\xa0', ' ').encode('utf-8')
 		return s
 
 def parseHomePage(root, page):
-	ref = urllib2.urlopen(page)
+	ref = urllib.urlopen(page)
 	webpage = ref.read()
 	soup = BeautifulSoup(webpage)
 	pt = soup.get_text()
@@ -121,7 +122,7 @@ def parseHomePage(root, page):
 	return dining
 	
 def parseHallPage(root, page):
-	ref = urllib2.urlopen(page)
+	ref = urllib.urlopen(page)
 	webpage = ref.read()
 	soup = BeautifulSoup(webpage)
 	frames = soup.find_all('frame')
@@ -133,7 +134,7 @@ def parseHallPage(root, page):
 	return days
 
 def parseDaysPage(root, page):
-	ref = urllib2.urlopen(page)
+	ref = urllib.urlopen(page)
 	webpage = ref.read()
 	soup = BeautifulSoup(webpage)
 	links = soup.find_all('a')
@@ -146,7 +147,7 @@ def parseDaysPage(root, page):
 	return days
 	
 def parseMenuPage(root, page):
-	ref = urllib2.urlopen("http://facilities.princeton.edu/dining/_Foodpro/menuSamp.asp?locationNum=01&locationName=Rockefeller+%26+Mathey+Colleges&sName=Princeton+University+Dining+Services&naFlag=1")
+	ref = urllib.urlopen(page)
 	webpage = ref.read()
 	soup = BeautifulSoup(webpage)
 	pt = soup.get_text()
@@ -162,7 +163,7 @@ def parseMenuPage(root, page):
 	return menu
 
 def parseMealPage(root, page):
-	ref = urllib2.urlopen(page)
+	ref = urllib.urlopen(page)
 	webpage = ref.read()
 	soup = BeautifulSoup(webpage)
 	entrees = soup.find_all('a')
@@ -180,7 +181,7 @@ def parseMealPage(root, page):
     
 
 def parseEntreePage(root, page):
-	ref = urllib2.urlopen(page)
+	ref = urllib.urlopen(page)
 	webpage = ref.read()
 	soup = BeautifulSoup(webpage)
 	ingred = []
@@ -237,5 +238,5 @@ def getData():
 	data = parseHomePage(root, page)
 	return data
 
-data = getData()
-print "success"
+#data = getData()
+#print data.html_string()

@@ -30,7 +30,7 @@ jinja = jinja2.Environment(
 class George(webapp2.RequestHandler):
     def get(self):
         data = george.getData()
-        self.response.write(data)
+        self.response.write(data.html_string())
 
 class Home(webapp2.RequestHandler):
     def get(self):
