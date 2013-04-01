@@ -1,0 +1,37 @@
+/* home.css */
+#content-container {
+	width: 960px;
+	margin: 0 auto;
+}
+
+#controls {
+	height: 180px;
+	width: 100%;
+	float: left;
+}
+
+#menus-container {
+	height: auto;
+	width: 100%;
+	float: left;
+}
+.menu-container {
+	width: 19%;
+	float: left;
+	text-align: center;
+}
+
+#forbes-container {
+	margin: 0 4% 0 8%;
+}
+
+#rockymathey-container {
+	margin: 0 8% 0 4%;
+}
+
+.menu-items-container {
+	margin: 10px 0 0;
+}
+.menu-items-container li {
+	padding: 5px 0;
+}

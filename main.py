@@ -23,7 +23,7 @@ import os
 import george
 import loadData
 import models
-import will
+import menuscraper
 
 jinja = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
@@ -31,7 +31,7 @@ jinja = jinja2.Environment(
 class George(webapp2.RequestHandler):
     def get(self):
         data = george.getData()
-        self.response.write(data)
+        self.response.write(data.html_string())
 
 class Home(webapp2.RequestHandler):
     def get(self):
@@ -51,7 +51,7 @@ class Timeline(webapp2.RequestHandler):
 
 class Will(webapp2.RequestHandler):
     def get(self):
-        data = will.getData()
+        data = menuscraper.getData()
         self.response.write(data.html_string())
 
 app = webapp2.WSGIApplication([

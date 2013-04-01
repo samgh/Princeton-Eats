@@ -3,14 +3,29 @@
 	<head>
     	<title>Princeton Eats</title>
     	<link type="text/css" rel="stylesheet" href="/css/main.css" />
+      <link type="text/css" rel="stylesheet" href="/css/header.css" /> 
+      <link type="text/css" rel="stylesheet" href="/css/home.css" /> 
     	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     	<script type="text/javascript" src="/js/main.js"></script>
-  	</head>
-  	<body>
-  		<header></header>
-  		<section class="main">
-  			{% block content %}{% endblock %}
-  		</section>
-  		<footer></footer>
-  	</body>
+  </head>
+  <body>
+  	<header>
+      <div id="header-container">
+        <div id="logo-container">
+          <a href="/">
+            <img src="images/princeton eats logo.png" alt="princeton eats logo" />
+          </a>
+        </div>
+        <div id="search-container">
+          <form id="search">
+            <input type="text" name="search" placeholder="Search">
+          </form>
+        </div>
+      </div>
+    </header>
+  	<section class="main">
+  		{% block content %}{% endblock %}
+  	</section>
+  	<footer></footer>
+  </body>
 </html>

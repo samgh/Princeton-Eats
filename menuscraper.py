@@ -91,7 +91,6 @@ def getData():
 def parseMenuPage(root, page):
     ref = urllib2.urlopen(page)
     webpage = ref.read()
-    print "Got a menu to parse"
     soup = BeautifulSoup(webpage)
     pt = soup.get_text()
     links = soup.find_all('a')
@@ -108,7 +107,6 @@ def parseMenuPage(root, page):
 def parseMealPage(root, page):
     ref = urllib2.urlopen(page)
     webpage = ref.read()
-    print "Got a meal to parse"
     soup = BeautifulSoup(webpage)
     entrees = soup.find_all('a')
     ents = []
@@ -127,7 +125,6 @@ def parseMealPage(root, page):
 def parseEntreePage(root, page):
     ref = urllib2.urlopen(page)
     webpage = ref.read()
-    print "Got an entree to parse"
     soup = BeautifulSoup(webpage)
     ingred = []
     allerg = []
