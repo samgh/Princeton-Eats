@@ -21,6 +21,7 @@ import jinja2
 import os
 
 import george
+import loadData
 import models
 import will
 
@@ -39,6 +40,10 @@ class Home(webapp2.RequestHandler):
         params['menu'] = 'test'
         self.response.out.write(template.render(params)) 
 
+class LoadData(webapp2.RequestHandler):
+    def get(self):
+        self.response.out.write(loadData.load())
+
 class Timeline(webapp2.RequestHandler):
     def get(self):
         template = jinja.get_template('templates/timeline.html')
@@ -51,7 +56,8 @@ class Will(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/george', George),
-    ('/will', Will),
+    ('/load-data', LoadData),
     ('/timeline', Timeline),
+    ('/will', Will),
     ('/', Home)
 ], debug=True)

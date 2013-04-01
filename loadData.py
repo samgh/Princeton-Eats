@@ -1,34 +1,49 @@
 import datetime
+import logging
 
 import models
 import will
     
+def getTestData():
+    data = []
+    menu = {'diningHall': 'Butler',
+            'breakfast': []}
+    data.append(menu)
+    return data
+    
 def load():
-    data = will.getData()
-    for menu in data:
-        insertMenu(menu)
-
-def insertMenu(menu):
+    #data = will.getData()
+    data = getTestData()
     meals = []
     entrees = []
-    if menu.breakfast:
-        (meal, mealEntrees) = constructMeal(menu, 'breakfast', menu.breakfast)
-        meals.append(meal)
-        entrees.append(mealEntrees)
-    if menu.lunch:
-        (meal, mealEntrees) = constructMeal(menu, 'lunch', menu.lunch)
-        meals.append(meal)
-        entrees.append(mealEntrees)    
-    if menu.dinner:
-        (meal, mealEntrees) = constructMeal(menu, 'dinner', menu.dinner)
-        meals.append(meal)
-        entrees.append(mealEntrees)
-    db.put(meals)
-    db.put(entrees)
     
-def constructMeal(menu, name, data):
+    for menu in data:
+        
+        print 'menu'
+        
+        (menuMeals, menuEntrees) = constructMenu(menu)
+        meals = menuMeals #meals + menuMeals
+        entrees = menuEntrees #entrees + menuEntrees
+    return (meals, entrees)
+    #db.put(meals)
+    #db.put(entrees)
+
+def constructMenu(menu):
+    menuMeals = []
+    menuEntrees = []
+    names = ['breakfast', 'lunch', 'dinner']
+    for name in names:
+        if name in menu:
+            (meal, mealEntrees) = constructMeal(menu, name)
+            menuMeals.append(meal)
+            menuEntrees.append(mealEntrees)
+    return (menuMeals, menuEntrees)
+    
+def constructMeal(menu, name):
+    data = menu[name]
     meal = models.Meal()
     #meal.date = 
-    meal.diningHall = menu.diningHall
+    mealEntrees = []
+    #meal.diningHall = menu.diningHall
     meal.name = name
     return (meal, mealEntrees)
