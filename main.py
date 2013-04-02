@@ -42,7 +42,9 @@ class Home(webapp2.RequestHandler):
 
 class LoadData(webapp2.RequestHandler):
     def get(self):
-        self.response.out.write(loadData.load())
+        data = loadData.load()
+        for d in data:
+            self.response.out.write(d.name)
 
 class Timeline(webapp2.RequestHandler):
     def get(self):

@@ -18,15 +18,15 @@ def load():
     entrees = []
     
     for menu in data:
-        
-        print 'menu'
-        
         (menuMeals, menuEntrees) = constructMenu(menu)
-        meals = menuMeals #meals + menuMeals
-        entrees = menuEntrees #entrees + menuEntrees
-    return (meals, entrees)
+        meals = meals + menuMeals
+        entrees = entrees + menuEntrees
+        
+    # Put all meals and entrees in the database simultaneously for efficiency
     #db.put(meals)
     #db.put(entrees)
+    
+    return meals
 
 def constructMenu(menu):
     menuMeals = []
