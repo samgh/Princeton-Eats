@@ -26,45 +26,6 @@ class Hall:
 		for day in self.days:
 			s += day.html_string()
 		return s
-		
-class Entree:
-	name = ""
-	ingredients = []
-	allergens = []
-	def string(self):
-		s = "Name:        "+self.name + '\n'
-		s += "Ingredients: "
-		for i in range(0, len(self.ingredients)):
-			if i == len(self.ingredients)-1:
-				s += self.ingredients[i]
-			else:
-				s += (self.ingredients[i]+", ")
-		s += "\nAllergens:   "
-		for i in range(0, len(self.allergens)):
-			if i == len(self.allergens)-1:
-				s += self.allergens[i]
-			else:
-				s += (self.allergens[i]+", ")
-		s += "\n"
-		return s
-
-	def html_string(self):
-		s = "Name:        "+self.name + "<br>"
-		s += "Ingredients: "
-		for i in range(0, len(self.ingredients)):
-			if i == len(self.ingredients)-1:
-				s += self.ingredients[i]
-			else:
-				s += (self.ingredients[i]+", ")
-		s += "<br>Allergens:   "
-		for i in range(0, len(self.allergens)):
-			if i == len(self.allergens)-1:
-				s += self.allergens[i]
-			else:
-				s += (self.allergens[i]+", ")
-		s += "<br><br>"
-		return s
-
 
 class Menu:
 	date = ""
@@ -102,6 +63,44 @@ class Menu:
 			s += e.html_string()
 		# May not be necessary, not liked by ascii
 		#s.replace(u'\xa0', ' ').encode('utf-8')
+		return s
+
+class Entree:
+	name = ""
+	ingredients = []
+	allergens = []
+	def string(self):
+		s = "Name:        "+self.name + '\n'
+		s += "Ingredients: "
+		for i in range(0, len(self.ingredients)):
+			if i == len(self.ingredients)-1:
+				s += self.ingredients[i]
+			else:
+				s += (self.ingredients[i]+", ")
+		s += "\nAllergens:   "
+		for i in range(0, len(self.allergens)):
+			if i == len(self.allergens)-1:
+				s += self.allergens[i]
+			else:
+				s += (self.allergens[i]+", ")
+		s += "\n"
+		return s
+
+	def html_string(self):
+		s = "Name:        "+self.name + "<br>"
+		s += "Ingredients: "
+		for i in range(0, len(self.ingredients)):
+			if i == len(self.ingredients)-1:
+				s += self.ingredients[i]
+			else:
+				s += (self.ingredients[i]+", ")
+		s += "<br>Allergens:   "
+		for i in range(0, len(self.allergens)):
+			if i == len(self.allergens)-1:
+				s += self.allergens[i]
+			else:
+				s += (self.allergens[i]+", ")
+		s += "<br><br>"
 		return s
 
 def parseHomePage(root, page):
@@ -236,7 +235,38 @@ def getData():
 	root = "http://facilities.princeton.edu/dining/_Foodpro/"
 	page = "http://facilities.princeton.edu/dining/_Foodpro/location.asp"
 	data = parseHomePage(root, page)
-	return data
+	dininghalls = []
+	for hall in data.halls:
+		halldict = {}
+		halldict['name'] = hall.name
+		halldict['menus'] = []
+		for menu in hall.days:
+			menudict = {}
+			menudict['date'] = menu.date
+			menudict['meals'] = []
+			# Add the meals to the menu for the day
+			menumeals = { 'breakfast': menu.breakfast, 'lunch': menu.lunch, 'dinner': menu.dinner }
+			for (mealname, entreelist) in  menumeals.iteritems():
+				mealdict = {}
+				mealdict['type'] = mealname
+				mealdict['entrees'] = []
+				for entree in entreelist:
+					mealdict['entrees'].append(entree.__dict__)
+				menudict['meals'].append(mealdict)
+			# Add the completed day's menu to the list of the hall's menus
+			halldict['menus'].append(menudict)
+		# Add the completed hall's week of menus to the list of halls
+		dininghalls.append(halldict)
+	return dininghalls
 
-#data = getData()
-#print data.html_string()
+"""def pretty(d, indent=0):
+	for key, value in d.iteritems():
+	  print '\t' * indent + str(key)
+	  if isinstance(value, dict):
+		 pretty(value, indent+1)
+	  else:
+		 print '\t' * (indent+1) + str(value)
+		 
+data = getData()
+for hall in data:
+	pretty(hall)"""
