@@ -22,8 +22,8 @@ import os
 
 import george
 import loadData
-import models
 import menuscraper
+import models
 
 jinja = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
@@ -42,10 +42,13 @@ class Home(webapp2.RequestHandler):
 
 class LoadData(webapp2.RequestHandler):
     def get(self):
-        data = loadData.load()
-        for d in data:
-            self.response.out.write(d.name)
-
+        #(meals, entrees) = loadData.load()
+        (meals, entrees) = models.getHomeData()
+        for m in meals:
+            self.response.out.write(m.html_string())
+        for e in entrees:
+            self.response.out.write(e.html_string())
+        
 class Timeline(webapp2.RequestHandler):
     def get(self):
         template = jinja.get_template('templates/timeline.html')

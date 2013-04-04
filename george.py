@@ -143,6 +143,7 @@ def parseDaysPage(root, page):
 			daylink = root + link['href']
 			days.append(parseMenuPage(root, daylink))
 			days[len(days)-1].date = link.string
+			return days
 	return days
 	
 def parseMenuPage(root, page):
@@ -242,7 +243,7 @@ def getData():
 		halldict['menus'] = []
 		for menu in hall.days:
 			menudict = {}
-			menudict['date'] = menu.date
+			menudict['date'] = unicode(menu.date)
 			menudict['meals'] = []
 			# Add the meals to the menu for the day
 			menumeals = { 'breakfast': menu.breakfast, 'lunch': menu.lunch, 'dinner': menu.dinner }

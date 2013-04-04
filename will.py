@@ -177,4 +177,4 @@ def stripSpace(str):
         bindex -= 1
     return str[findex:bindex]
 
-print getData().string()
+#print getData().string()
