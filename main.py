@@ -32,7 +32,7 @@ class George(webapp2.RequestHandler):
     def get(self):
         data = george.getData()
         self.response.write(data)
-
+ 
 class Home(webapp2.RequestHandler):
     def get(self):
         template = jinja.get_template('templates/home.html')
