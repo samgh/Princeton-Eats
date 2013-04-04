@@ -30,18 +30,11 @@
 				</div>
 				<div class="menu-items-container">
 					<ul class="menu-items">
-						<li class="item">
-							Food!
-						</li>
-						<li class="item">
-							Food!
-						</li>
-						<li class="item">
-							Food!
-						</li>
-						<li class="item">
-							Food!
-						</li>
+						{% for meal in menus['Butler & Wilson Colleges'] %}
+							<li class="item">
+								{{ meal }}
+							</li>
+						{% endfor %}
 					</ul>
 				</div>
 			</div>
@@ -53,18 +46,11 @@
 				</div>
 				<div class="menu-items-container">
 					<ul class="menu-items">
-						<li class="item">
-							Food!
-						</li>
-						<li class="item">
-							Food!
-						</li>
-						<li class="item">
-							Food!
-						</li>
-						<li class="item">
-							Food!
-						</li>
+						{% for meal in menus['Forbes College'] %}
+							<li class="item">
+								{{ meal }}
+							</li>
+						{% endfor %}
 					</ul>
 				</div>
 			</div>
@@ -76,18 +62,11 @@
 				</div>
 				<div class="menu-items-container">
 					<ul class="menu-items">
-						<li class="item">
-							Food!
-						</li>
-						<li class="item">
-							Food!
-						</li>
-						<li class="item">
-							Food!
-						</li>
-						<li class="item">
-							Food!
-						</li>
+						{% for meal in menus['Rockefeller & Mathey Colleges'] %}
+							<li class="item">
+								{{ meal }}
+							</li>
+						{% endfor %}
 					</ul>
 				</div>
 			</div>
@@ -99,18 +78,11 @@
 				</div>
 				<div class="menu-items-container">
 					<ul class="menu-items">
-						<li class="item">
-							Food!
-						</li>
-						<li class="item">
-							Food!
-						</li>
-						<li class="item">
-							Food!
-						</li>
-						<li class="item">
-							Food!
-						</li>
+						{% for meal in menus['Whitman College'] %}
+							<li class="item">
+								{{ meal }}
+							</li>
+						{% endfor %}
 					</ul>
 				</div>
 			</div>

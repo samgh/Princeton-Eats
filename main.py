@@ -37,13 +37,15 @@ class Home(webapp2.RequestHandler):
     def get(self):
         template = jinja.get_template('templates/home.html')
         params = {}
-        params['menu'] = 'test'
+        params['menus'] = models.getHomeMenus()
         self.response.out.write(template.render(params)) 
 
 class LoadData(webapp2.RequestHandler):
     def get(self):
-        #(meals, entrees) = loadData.load()
-        (meals, entrees) = models.getHomeData()
+        (meals, entrees) = loadData.load()
+        #(meals, entrees) = models.getMealsAndEntrees()
+        #menus = models.getHomeMenus()
+        #self.response.out.write(menus)
         for m in meals:
             self.response.out.write(m.html_string())
         for e in entrees:
