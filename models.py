@@ -40,7 +40,7 @@ def getHomeMenus():
     q = db.GqlQuery("SELECT * FROM Meal " +
                     "WHERE date = :1 " +
                     "AND type = :2 ",
-                    "Wednesday, April 03", "lunch")
+                    "Friday, April 05", "dinner")
     for meal in q.run():
         if meal.hall in menus:
             continue

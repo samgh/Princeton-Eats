@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import urllib
 import urllib2
+import urllib3
 import re
 import string
 
@@ -44,11 +45,12 @@ class Entree:
 
 
 class Menu:
+    date = ""
     breakfast = []
     lunch = []
     dinner = []
     def string(self):
-        s = ""
+        s = date+"\n"
         s += "Breakfast:\n"
         s += "----------------------------------------------------------\n"
         for e in self.breakfast:
@@ -66,7 +68,7 @@ class Menu:
             s += "----------------------------------------------------------\n"
         return s
     def html_string(self):
-        s = ""
+        s = "<h3>" + self.date + "</h3>"
         s += "<h3>Breakfast:</h3>"
         for e in self.breakfast:
             s += e.html_string()
@@ -82,31 +84,37 @@ class Menu:
 
 def getData():
     root = "http://facilities.princeton.edu/dining/_Foodpro/"
+    pool = urllib3.PoolManager()
 #    data = parseMenuPage(root, "http://facilities.princeton.edu/dining/_Foodpro/menuSamp.asp?locationNum=01&locationName=Rockefeller+%26+Mathey+Colleges&sName=Princeton+University+Dining+Services&naFlag=1")
-    print "Attempting to open page"
-    data = parseMenuPage(root, "http://facilities.princeton.edu/dining/_Foodpro/menuSamp.asp?locationNum=02&locationName=Butler+%26+Wilson+Colleges&sName=Princeton+University+Dining+Services&naFlag=1")
+    data = parseMenuPage(pool, root, "http://facilities.princeton.edu/dining/_Foodpro/menuSamp.asp?locationNum=02&locationName=Butler+%26+Wilson+Colleges&sName=Princeton+University+Dining+Services&naFlag=1")
     return data
 
-
-def parseMenuPage(root, page):
-    ref = urllib2.urlopen(page)
-    webpage = ref.read()
+def parseMenuPage(pool, root, page):
+    ref = pool.request('GET', page)
+    webpage = ref.data
+    #print "Got a menu to parse:"
+    #print "Root:", root
+    #print "Page:", page
+    #print "Status:", ref.status
     soup = BeautifulSoup(webpage)
     pt = soup.get_text()
     links = soup.find_all('a')
     menu = Menu()
     for s in links:
         if s['name'] == "Breakfast":
-            menu.breakfast = parseMealPage(root, root+s['href'])
+            menu.breakfast = parseMealPage(pool, root, root+s['href'])
         if s['name'] == "Lunch":
-            menu.lunch = parseMealPage(root, root+s['href'])
+            menu.lunch = parseMealPage(pool, root, root+s['href'])
         if s['name'] == "Dinner":
-            menu.dinner = parseMealPage(root, root+s['href'])
+            menu.dinner = parseMealPage(pool, root, root+s['href'])
     return menu
 
-def parseMealPage(root, page):
-    ref = urllib2.urlopen(page)
-    webpage = ref.read()
+def parseMealPage(pool, root, page):
+    #ref = urllib2.urlopen(page)
+    #webpage = ref.read()
+    ref = pool.request('GET', page)
+    webpage = ref.data
+    print "Got a meal to parse"
     soup = BeautifulSoup(webpage)
     entrees = soup.find_all('a')
     ents = []
@@ -115,16 +123,17 @@ def parseMealPage(root, page):
             continue
         e = Entree()
         e.name = s.text
-        parse = parseEntreePage(root,root+ s['href'])
+        parse = parseEntreePage(pool,root,root+ s['href'])
         e.ingredients = parse[0]
         e.allergens = parse[1]
         ents.append(e)
     return ents
     
 
-def parseEntreePage(root, page):
-    ref = urllib2.urlopen(page)
-    webpage = ref.read()
+def parseEntreePage(pool, root, page):
+    ref= pool.request('GET', page)
+    webpage = ref.data
+    print "Got an entree to parse"
     soup = BeautifulSoup(webpage)
     ingred = []
     allerg = []

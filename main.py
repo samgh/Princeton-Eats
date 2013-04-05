@@ -20,7 +20,7 @@ import webapp2
 import jinja2
 import os
 
-import george
+import menuparser
 import loadData
 import menuscraper
 import models
@@ -30,7 +30,7 @@ jinja = jinja2.Environment(
 
 class George(webapp2.RequestHandler):
     def get(self):
-        data = george.getData()
+        data = menuparser.getData()
         self.response.write(data)
  
 class Home(webapp2.RequestHandler):

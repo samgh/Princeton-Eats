@@ -4,11 +4,11 @@ import pprint
 from google.appengine.ext import db
 
 import models
-import george
+import menuparser
     
 def load():
     # Fetch menu data
-    data = george.getData()
+    data = menuparser.getData()
     meals = []
     entrees = []
     
