@@ -2,6 +2,14 @@ import datetime
 
 from google.appengine.ext import db
 
+# Identifiers for dining halls
+halls = {
+    'Butler & Wilson Colleges':'butlerwilson',
+    'Forbes College':'forbes',
+    'Rockefeller & Mathey Colleges':'rockymathey',
+    'Whitman College':'whitman'
+}
+
 # Entree data type, keyed by name
 class Entree(db.Model):
     allergens = db.StringListProperty()
@@ -42,10 +50,12 @@ def getMeals(d, type):
     menus = {}
     q = db.GqlQuery("SELECT * FROM Meal " + 
                     "WHERE type = :1 " + 
-                    "AND date = :2",
+                    "AND date = :2 " +
+                    "ORDER BY hall ASC",
                     type, d)
     for meal in q.run():
-        if meal.hall in menus:
+        hallId = halls[meal.hall]
+        if hallId in menus:
             continue
-        menus[meal.hall] = meal.entreeKeys
+        menus[hallId] = meal.entreeKeys
     return menus

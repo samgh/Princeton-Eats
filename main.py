@@ -37,12 +37,7 @@ class George(webapp2.RequestHandler):
 class Home(webapp2.RequestHandler):
     def get(self):
         template = jinja.get_template('templates/home.html')
-        params = {}
-        d = date.today()
-        params['breakfastMenus'] = models.getMeals(d, 'breakfast')
-        params['lunchMenus'] = models.getMeals(d, 'lunch')
-        params['menus'] = models.getMeals(d, 'dinner')
-        self.response.out.write(template.render(params)) 
+        self.response.out.write(template.render({})) 
 
 class LoadData(webapp2.RequestHandler):
     def get(self):
@@ -55,6 +50,15 @@ class LoadData(webapp2.RequestHandler):
             self.response.out.write(m.html_string())
         for e in entrees:
             self.response.out.write(e.html_string())
+        
+class Menus(webapp2.RequestHandler):
+    def get(self):
+        template = jinja.get_template('templates/pieces/menus.html')
+        d = date.today()
+        meal = self.request.get('meal')
+        params = {}
+        params['menus'] = models.getMeals(d, meal)
+        self.response.out.write(template.render(params)) 
         
 class Timeline(webapp2.RequestHandler):
     def get(self):
@@ -69,6 +73,7 @@ class Will(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
     ('/george', George),
     ('/load-data', LoadData),
+    ('/menus', Menus),
     ('/timeline', Timeline),
     ('/will', Will),
     ('/', Home)
