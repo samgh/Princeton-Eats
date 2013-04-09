@@ -17,10 +17,10 @@ class Entree(db.Model):
 
 # Meal data type
 class Meal(db.Model):
-    date = db.StringProperty()
+    date = db.DateProperty()   # What day is this meal associated with
     entreeKeys = db.StringListProperty()
-    hall = db.StringProperty()
-    type = db.StringProperty()
+    hall = db.StringProperty() # Dining hall
+    type = db.StringProperty() # breakfast, lunch or dinner
     def html_string(self):
         html = '<div>'
         html = html + '<p><b>%s, %s, %s</b></p>' % (self.hall, self.type, self.date)
@@ -32,15 +32,18 @@ class Meal(db.Model):
 def getMealsAndEntrees():
     meals = Meal.all().run()
     entrees = Entree.all().run()
+    
+    #db.delete(meals)
+    #db.delete(entrees)
     return (meals, entrees)
 
 # Return menus for home page
-def getHomeMenus():
+def getMeals(d, type):
     menus = {}
-    q = db.GqlQuery("SELECT * FROM Meal " +
-                    "WHERE date = :1 " +
-                    "AND type = :2 ",
-                    "Friday, April 05", "dinner")
+    q = db.GqlQuery("SELECT * FROM Meal " + 
+                    "WHERE type = :1 " + 
+                    "AND date = :2",
+                    type, d)
     for meal in q.run():
         if meal.hall in menus:
             continue

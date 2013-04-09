@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime, date, time
 import logging
 import pprint
 from google.appengine.ext import db
@@ -41,9 +41,15 @@ def constructModels(hall, menu, meal):
         entrees.append(e)
         entreeKeys.append(key)
     
+    # Get date
+    dt = datetime.now()
+    dateStr = menu['date'] + " %d" % dt.year
+    dt = datetime.strptime(dateStr, "%A, %B %d %Y")
+    d = dt.date()
+    
     # Construct meals
     m = models.Meal()
-    m.date = menu['date']
+    m.date = d
     m.hall = hall['name']
     m.type = meal['type']
     m.entreeKeys = entreeKeys

@@ -19,6 +19,7 @@ import webapp2
 
 import jinja2
 import os
+from datetime import datetime, date, time
 
 import menuparser
 import loadData
@@ -37,7 +38,10 @@ class Home(webapp2.RequestHandler):
     def get(self):
         template = jinja.get_template('templates/home.html')
         params = {}
-        params['menus'] = models.getHomeMenus()
+        d = date.today()
+        params['breakfastMenus'] = models.getMeals(d, 'breakfast')
+        params['lunchMenus'] = models.getMeals(d, 'lunch')
+        params['menus'] = models.getMeals(d, 'dinner')
         self.response.out.write(template.render(params)) 
 
 class LoadData(webapp2.RequestHandler):
@@ -46,6 +50,7 @@ class LoadData(webapp2.RequestHandler):
         #(meals, entrees) = models.getMealsAndEntrees()
         #menus = models.getHomeMenus()
         #self.response.out.write(menus)
+        
         for m in meals:
             self.response.out.write(m.html_string())
         for e in entrees:
