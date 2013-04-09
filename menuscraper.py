@@ -1,8 +1,6 @@
 from bs4 import BeautifulSoup
-import urllib
-import urllib2
 import urllib3
-import re
+import unicodedata
 import string
 
 class Entree:
@@ -50,7 +48,7 @@ class Menu:
     lunch = []
     dinner = []
     def string(self):
-        s = date+"\n"
+        s = self.date+"\n"
         s += "Breakfast:\n"
         s += "----------------------------------------------------------\n"
         for e in self.breakfast:
@@ -172,7 +170,8 @@ def isEmpty(str):
     return True
 
 def stripSpace(str):
-    str = str.replace(u'\xa0', ' ').encode('utf-8')
+    str = unicodedata.normalize('NFKD', str).encode('ascii','ignore');
+    #str = str.replace(u'\xa0', ' ').encode('utf-8')
     findex = 0
     bindex = len(str)
     if bindex == 0:
