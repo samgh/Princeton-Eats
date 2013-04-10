@@ -1,0 +1,36 @@
+cron:
+- description: daily get menu 0.
+  url: /load-data/0
+  schedule: every hour 00
+  timezone: America/New_York
+
+- description: daily get menu 1.
+  url: /load-data/1
+  schedule: every hour 05
+  timezone: America/Atikokan
+
+- description: daily get menu 2.
+  url: /load-data/2
+  schedule: every hour 10
+  timezone: America/Atikokan
+
+- description: daily get menu 3.
+  url: /load-data/3
+  schedule: every hour 15
+  timezone: America/Atikokan
+
+- description: daily get menu 4.
+  url: /load-data/4
+  schedule: every hour 20
+  timezone: America/Atikokan
+
+- description: daily get menu 5.
+  url: /load-data/5
+  schedule: every hour 25
+  timezone: America/Atikokan
+
+- description: daily get menu 6.
+  url: /load-data/6
+  schedule: every hour 30
+  timezone: America/Atikokan
+
