@@ -2,12 +2,12 @@
 $(function() {
 	$('#meal-selector-form input').on('click', function() {
 		var meal = $(this).attr('id');
-		console.log(meal);
 		$.ajax({
 			url: '/menus',
 			data: {
 				meal: meal
 			},
+			async: false,
 			success: function(r) {
 				$('#menus-container').html(r);
 			}
@@ -24,6 +24,11 @@ $("document").ready(function() {
 	});
 
 	// handling checking and unchecking of filters
+	$("#filters-form :checkbox").each(function() {
+		if (this.checked) {
+			$("." + $(this).attr('value')).css("color", "red");
+		}
+	});
 	$("#filters-form :checkbox").click(function() {
 		var $this = $(this);
 		if ($this.is(':checked')) {
@@ -31,7 +36,11 @@ $("document").ready(function() {
 		}
 		else {
 			$("." + $(this).attr('value')).css("color", "black");
-			// fix unhilighting when multiple classes
+			$("#filters-form :checkbox").each(function() {
+				if (this.checked) {
+					$("." + $(this).attr('value')).css("color", "red");
+				}
+			});
 		}
 	});
 });
