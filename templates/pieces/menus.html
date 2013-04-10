@@ -29,11 +29,13 @@
 	<tr id="breakfast">
 		{% for menu in menus %}
 			<td id="{{ menu }}-items">
-				{% for meal in menus[menu] %}
-					<li class="item">
-						{{ meal }}
-					</li>
-				{% endfor %}
+				<ul>
+					{% for meal in menus[menu] %}
+						<li class="item">
+							{{ meal }}
+						</li>
+					{% endfor %}
+				</ul>
 			</td>
 		{% endfor %}
 	</tr>
