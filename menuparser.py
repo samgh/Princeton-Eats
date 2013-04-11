@@ -72,7 +72,7 @@ def parseDaysPage(pool, root, page):
 			daylink = daylink.replace(" ","")
 			days.append(menuscraper.parseMenuPage(pool, root, daylink))
 			days[len(days)-1].date = link.string
-			#return days
+			return days
 	# DEBUG
 	#print days[0].string()
 	return days
