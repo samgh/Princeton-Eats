@@ -159,6 +159,14 @@ header #search input {
 	text-align: center;
 }
 
+#menus-table {
+	width: 100%;
+}
+
+#menus-table tr {
+	width: 100%;
+}
+
 #menus-table td {
 	width: 25%;
 }
