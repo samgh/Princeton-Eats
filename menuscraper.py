@@ -7,6 +7,12 @@ class Entree:
     name = ""
     ingredients = []
     allergens = []
+    def ascii(self):
+        self.name = ascii(self.name)
+        for i in self.ingredients:
+            i = ascii(i)
+        for a in self.allergens:
+            a = ascii(a)
     def string(self):
         s = "Name:        "+self.name + '\n'
         s += "Ingredients: "
@@ -47,8 +53,16 @@ class Menu:
     breakfast = []
     lunch = []
     dinner = []
+    def ascii(self):
+        self.date = ascii(self.date)
+        for b in self.breakfast:
+            b.ascii()
+        for l in self.lunch:
+            l.ascii()
+        for d in self.dinner:
+            d.ascii()
     def string(self):
-        s = self.date+"\n"
+        s = "" #self.date+"\n"
         s += "Breakfast:\n"
         s += "----------------------------------------------------------\n"
         for e in self.breakfast:
@@ -135,7 +149,7 @@ def parseEntreePage(pool, root, page):
     soup = BeautifulSoup(webpage)
     ingred = []
     allerg = []
-    text =  soup.text
+    text =  stripSpace(soup.text)
     lines = []
     lines = text.split('\n')
     for s in lines:
@@ -170,7 +184,10 @@ def isEmpty(str):
     return True
 
 def stripSpace(str):
-    str = unicodedata.normalize('NFKD', str).encode('ascii','ignore');
+    if isinstance(str, unicode):
+        str = unicodedata.normalize('NFKD', str).encode('ascii','ignore')
+    if isinstance(str, unicode):
+        print "Unicode conversion error"
     #str = str.replace(u'\xa0', ' ').encode('utf-8')
     findex = 0
     bindex = len(str)
@@ -182,4 +199,12 @@ def stripSpace(str):
         bindex -= 1
     return str[findex:bindex]
 
-#print getData().string()
+def ascii(str):
+    if isinstance(str, unicode):
+        str = unicodedata.normalize('NFKD', str).encode('ascii','ignore')
+        print str
+    return str
+
+#d = getData()
+#d.ascii()
+#print d.string()

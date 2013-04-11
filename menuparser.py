@@ -6,6 +6,7 @@ import urllib3
 import re
 import string
 import menuscraper
+import unicodedata
 
 # The dining halls we work with
 hallnames = ["Butler", "Forbes", "Rockefeller", "Whitman"]
@@ -13,6 +14,9 @@ daynames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "S
 
 class Dining:
 	halls = []
+	def ascii(self):
+		for hall in self.halls:
+			hall.ascii()
 	def html_string(self):
 		s = ""
 		for hall in self.halls:
@@ -23,6 +27,11 @@ class Hall:
 	name = ""
 	link = ""
 	days = []
+	def ascii(self):
+		self.name = menuscraper.ascii(self.name)
+		self.link = menuscraper.ascii(self.link)
+		for day in self.days:
+			day.ascii()
 	def html_string(self):
 		s = "<h3>" + self.name + "</h3><br>"
 		for day in self.days:
@@ -75,9 +84,10 @@ def parseDaysPage(pool, root, page, offset):
 			# Page is bad, contains space in url. urllib3 doesn't like it.
 			daylink = daylink.replace(" ","")
 			days.append(menuscraper.parseMenuPage(pool, root, daylink))
-			days[len(days)-1].date = link.string
+			days[len(days)-1].date = menuscraper.ascii(link.string)
 			# If offset is at 0, then this is the day to return
 			if offset == 0:
+				days[0].ascii()
 				print days[0].string()
 				return days
 	# DEBUG
@@ -97,7 +107,7 @@ def getData(offset = 0):
 		halldict['menus'] = []
 		for menu in hall.days:
 			menudict = {}
-			menudict['date'] = unicode(menu.date)
+			menudict['date'] = menuscraper.ascii(menu.date)
 			menudict['meals'] = []
 			# Add the meals to the menu for the day
 			menumeals = { 'breakfast': menu.breakfast, 'lunch': menu.lunch, 'dinner': menu.dinner }
