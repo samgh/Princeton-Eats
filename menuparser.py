@@ -29,7 +29,7 @@ class Hall:
 			s += day.html_string()
 		return s
 
-def parseHomePage(pool, root, page):
+def parseHomePage(pool, root, page, offset):
 	ref = pool.request('GET', page)
 	webpage = ref.data
 	soup = BeautifulSoup(webpage)
@@ -42,11 +42,11 @@ def parseHomePage(pool, root, page):
 				hall = Hall()
 				hall.name = s.string.strip()
 				hall.link = root + s['href']
-				hall.days = parseHallPage(pool, root, hall.link)
+				hall.days = parseHallPage(pool, root, hall.link, offset)
 				dining.halls.append(hall)
 	return dining
 	
-def parseHallPage(pool, root, page):
+def parseHallPage(pool, root, page, offset):
 	ref = pool.request('GET', page)
 	webpage = ref.data
 	soup = BeautifulSoup(webpage)
@@ -55,10 +55,10 @@ def parseHallPage(pool, root, page):
 	for frame in frames:
 		if frame['title'] == "left navigation menu":
 			dayslink = root + frame['src']
-			days = parseDaysPage(pool, root, dayslink)
+			days = parseDaysPage(pool, root, dayslink, offset)
 	return days
 
-def parseDaysPage(pool, root, page):
+def parseDaysPage(pool, root, page, offset):
 	ref = pool.request('GET', page)
 	webpage = ref.data
 	soup = BeautifulSoup(webpage)
@@ -67,22 +67,29 @@ def parseDaysPage(pool, root, page):
 	for link in links:
 		print "opening page"
 		if any(dayname in link.string for dayname in daynames):
+			# Skip offset number of days
+			if offset > 0:
+				offset -= 1
+				continue
 			daylink = root + link['href']
-			# Page is bad, contains space in url. urllib3 dont like.
+			# Page is bad, contains space in url. urllib3 doesn't like it.
 			daylink = daylink.replace(" ","")
 			days.append(menuscraper.parseMenuPage(pool, root, daylink))
 			days[len(days)-1].date = link.string
-			#return days
+			# If offset is at 0, then this is the day to return
+			if offset == 0:
+				print days[0].string()
+				return days
 	# DEBUG
 	#print days[0].string()
 	return days
 
-def getData():
+def getData(offset = 0):
 	root = "http://facilities.princeton.edu/dining/_Foodpro/"
 	page = "http://facilities.princeton.edu/dining/_Foodpro/location.asp"
 	# USE THIS POOL WHENEVER YOU MAKE A URL CALL! This saves the connections.
 	pool = urllib3.PoolManager()
-	data = parseHomePage(pool, root, page)
+	data = parseHomePage(pool, root, page, offset)
 	dininghalls = []
 	for hall in data.halls:
 		halldict = {}
@@ -115,6 +122,4 @@ def getData():
 	  else:
 		 print '\t' * (indent+1) + str(value)
 		 
-data = getData()
-for hall in data:
-	pretty(hall)"""
+data = getData(4)"""
