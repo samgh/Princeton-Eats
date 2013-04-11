@@ -43,4 +43,12 @@ $("document").ready(function() {
 			});
 		}
 	});
+
+	// uncheck all filters
+	$("#clear-filters").click(function() {
+		$("#filters-form :checkbox").each(function() {
+			$(this).attr("checked", false);
+			$("." + $(this).attr('value')).css("color", "black");
+		});
+	});
 });
