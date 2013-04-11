@@ -1,6 +1,0 @@
-cron:
-- description: daily get menu 0.
-  url: /load-data/0
-  schedule: every hour synchronized
-  timezone: America/New_York
-
