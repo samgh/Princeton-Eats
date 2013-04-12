@@ -41,7 +41,11 @@ class Home(webapp2.RequestHandler):
 
 class LoadData(webapp2.RequestHandler):
     def get(self):
-        (meals, entrees) = loadData.load()
+        offset = self.request.get('offset')
+        if offset == '':
+            offset = 0
+        offset = int(float(offset))
+        (meals, entrees) = loadData.load(offset)
         #(meals, entrees) = models.getMealsAndEntrees()
         #menus = models.getHomeMenus()
         #self.response.out.write(menus)

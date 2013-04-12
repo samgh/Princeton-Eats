@@ -1,3 +1,4 @@
+<!--
 {% for menu in menus %}
 	<div id="{{ menu }}-container" class="menu-container">
 		<div class="dining-hall-container">
@@ -16,3 +17,26 @@
 		</div>
 	</div>
 {% endfor %}
+-->
+<table id="menus-table">
+	<tr id="logos">
+		{% for menu in menus %}
+		<td id="{{ menu }}-logo-container">
+			<img src="images/{{ menu }}.png" />
+		</td>
+		{% endfor %}
+	</tr>
+	<tr id="meal">
+		{% for menu in menus %}
+			<td id="{{ menu }}-items">
+				<ul>
+					{% for meal in menus[menu] %}
+						<li class="item">
+							{{ meal }}
+						</li>
+					{% endfor %}
+				</ul>
+			</td>
+		{% endfor %}
+	</tr>
+</table>

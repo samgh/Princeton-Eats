@@ -1,0 +1,6 @@
+cron:
+- description: daily get menu 0.
+  url: /load-data?offset=0
+  schedule: every 5 minutes
+  timezone: America/New_York
+

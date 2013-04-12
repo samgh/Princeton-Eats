@@ -3,9 +3,7 @@
 	<head>
     	<title>Princeton Eats</title>
     	<link type="text/css" rel="stylesheet" href="/css/main.css" />
-      	<link type="text/css" rel="stylesheet" href="/css/header.css" /> 
-      	<link type="text/css" rel="stylesheet" href="/css/home.css" /> 
-		<script src="/js/jquery.js"></script>
+  		<script src="/js/jquery.js"></script>
     	<script src="/js/main.js"></script>
   	</head>
   	<body>
@@ -23,6 +21,20 @@
         		</div>
       		</div>
     	</header>
+      <section id="filters">
+        <div id="filters-container">
+          <button id="filters-button" type="button">Filters</button>
+          <form id="filters-form">
+            <input type="checkbox" name="allergen" value="milk">Milk
+            <input type="checkbox" name="allergen" value="eggs">Eggs
+            <input type="checkbox" name="allergen" value="fish">Fish
+            <input type="checkbox" name="allergen" value="shellfish">Shellfish/Crustacean
+            <input type="checkbox" name="allergen" value="wheat">Wheat
+            <input type="checkbox" name="allergen" value="soy">Soy
+            <button id="clear-filters" type="button">Clear</button>
+          </form>
+        </div>
+      </section>
   		<section class="main">
   			{% block content %}{% endblock %}
   		</section>

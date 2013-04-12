@@ -6,9 +6,9 @@ from google.appengine.ext import db
 import models
 import menuparser
     
-def load():
+def load(offset=0):
     # Fetch menu data
-    data = menuparser.getData()
+    data = menuparser.getData(offset)
     meals = []
     entrees = []
     
