@@ -58,7 +58,8 @@ class LoadData(webapp2.RequestHandler):
 class Menus(webapp2.RequestHandler):
     def get(self):
         template = jinja.get_template('templates/pieces/menus.html')
-        d = date.today()
+        d = self.request.get('day')
+        d = datetime.strptime(d, '%m/%d/%Y').date()
         meal = self.request.get('meal')
         params = {}
         params['menus'] = models.getMeals(d, meal)
