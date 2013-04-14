@@ -98,7 +98,7 @@ header #logo-container {
 
 header #search-container {
 	float: left;
-	width: 40%;
+	width: 350px;
 	height: 100%;
 }
 
@@ -108,9 +108,9 @@ header #search {
 }
 
 header #search input {
-	width: 100%;
+	width: 320px;
 	height: 30px;
-	margin: 10px 10px;
+	margin: 10px;
 	padding: 3px 5px;
 	font-size: 1em;
 }
