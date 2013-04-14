@@ -74,7 +74,7 @@ def parseDaysPage(pool, root, page, offset):
 	links = soup.find_all('a')
 	days = []
 	for link in links:
-		print "opening page"
+		#print "opening page"
 		if any(dayname in link.string for dayname in daynames):
 			# Skip offset number of days
 			if offset > 0:
@@ -88,7 +88,7 @@ def parseDaysPage(pool, root, page, offset):
 			# If offset is at 0, then this is the day to return
 			if offset == 0:
 				days[0].ascii()
-				print days[0].string()
+				#print days[0].string()
 				return days
 	# DEBUG
 	#print days[0].string()
@@ -123,13 +123,3 @@ def getData(offset = 0):
 		# Add the completed hall's week of menus to the list of halls
 		dininghalls.append(halldict)
 	return dininghalls
-
-"""def pretty(d, indent=0):
-	for key, value in d.iteritems():
-	  print '\t' * indent + str(key)
-	  if isinstance(value, dict):
-		 pretty(value, indent+1)
-	  else:
-		 print '\t' * (indent+1) + str(value)
-		 
-data = getData(4)"""
