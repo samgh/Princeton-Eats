@@ -48,6 +48,8 @@ def getMealsAndEntrees():
 # Return menus for home page
 def getMeals(d, type):
     menus = {}
+    if type not in ['breakfast', 'lunch', 'dinner']:
+        return []
     q = db.GqlQuery("SELECT * FROM Meal " + 
                     "WHERE type = :1 " + 
                     "AND date = :2 " +
