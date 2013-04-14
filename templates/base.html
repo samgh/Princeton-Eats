@@ -9,7 +9,7 @@
     	<script src="/js/main.js"></script>
   	</head>
   	<body>
-  		<header>
+<!--  		<header>
    	   		<div id="header-container">
         		<div id="logo-container">
           			<a href="/">
@@ -22,7 +22,7 @@
           			</form>
         		</div>
       		</div>
-    	</header>
+    	</gheader>
       <section id="filters">
         <div id="filters-container">
           <button id="filters-button" type="button">Filters</button>
@@ -37,6 +37,37 @@
           </form>
         </div>
       </section>
+    -->
+        <header>
+          <div id="header-container">
+            <div id="logo-container">
+                <a href="/">
+                  <img src="/images/logo.png" alt="princeton eats logo" />
+                </a>
+            </div>
+            <div id="search-container">
+                <form id="search">
+                  <input type="text" name="search" placeholder="Search">
+                </form>
+            </div>
+                        <button id="filters-button" type="button">Filters</button>
+          </div>
+        </header>
+        <section id="filters"> 
+          <div id="filters-container">
+            <form id="filters-form">
+              <input type="checkbox" name="allergen" value="milk">Milk
+              <input type="checkbox" name="allergen" value="eggs">Eggs
+              <input type="checkbox" name="allergen" value="fish">Fish
+              <input type="checkbox" name="allergen" value="shellfish">Shellfish/Crustacean
+              <input type="checkbox" name="allergen" value="wheat">Wheat
+              <input type="checkbox" name="allergen" value="soy">Soy
+              <button id="clear-filters" type="button">Clear</button>
+            </form>
+          </div>
+        </section>
+
+
   		<section class="main">
   			{% block content %}{% endblock %}
   		</section>
