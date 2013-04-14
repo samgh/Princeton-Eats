@@ -24,22 +24,26 @@ def load(offset=0):
     
     # Put all meals and entrees in the database simultaneously for efficiency
     db.put(meals)
-    db.put(entrees)
     
     return (meals, entrees)
     
 def constructModels(hall, menu, meal):
     # Get entree models
     entrees = []
-    entreeKeys = []
+    entreeIDs = []
     for entree in meal['entrees']:
         key = entree['name']
-        e = models.Entree(key_name=key)
-        e.name = key
+        e = models.Entree()
+        e.name = entree['name']
+        e.protoname = entree['name'] + "|" + hall['name']
         e.allergens = entree['allergens']
         e.ingredients = entree['ingredients']
         entrees.append(e)
-        entreeKeys.append(key)
+
+    # Add the entrees and get their IDs
+    eKeys = db.put(entrees)
+    for eKey in eKeys:
+        entreeIDs.append(eKey.id())
     
     # Get date
     dt = datetime.now()
@@ -52,6 +56,8 @@ def constructModels(hall, menu, meal):
     m.date = d
     m.hall = hall['name']
     m.type = meal['type']
-    m.entreeKeys = entreeKeys
+    m.entreeIDs = entreeIDs
 
     return (m, entrees)
+
+load()

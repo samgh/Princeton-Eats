@@ -126,7 +126,7 @@ def parseMealPage(pool, root, page):
     #webpage = ref.read()
     ref = pool.request('GET', page)
     webpage = ref.data
-    print "Got a meal to parse"
+    #print "Got a meal to parse"
     soup = BeautifulSoup(webpage)
     entrees = soup.find_all('a')
     ents = []
@@ -145,7 +145,7 @@ def parseMealPage(pool, root, page):
 def parseEntreePage(pool, root, page):
     ref= pool.request('GET', page)
     webpage = ref.data
-    print "Got an entree to parse"
+    #print "Got an entree to parse"
     soup = BeautifulSoup(webpage)
     ingred = []
     allerg = []

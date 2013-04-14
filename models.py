@@ -15,6 +15,7 @@ class Entree(db.Model):
     allergens = db.StringListProperty()
     ingredients = db.StringListProperty()
     name = db.StringProperty()
+    protoname = db.StringProperty();
     def html_string(self):
         html = '<div>'
         html = html + '<p><b>%s</b></p>' % self.name
@@ -26,13 +27,13 @@ class Entree(db.Model):
 # Meal data type
 class Meal(db.Model):
     date = db.DateProperty()   # What day is this meal associated with
-    entreeKeys = db.StringListProperty()
+    entreeIDs = db.ListProperty(int)
     hall = db.StringProperty() # Dining hall
     type = db.StringProperty() # breakfast, lunch or dinner
     def html_string(self):
         html = '<div>'
         html = html + '<p><b>%s, %s, %s</b></p>' % (self.hall, self.type, self.date)
-        html = html + '<p>%s</p>' % self.entreeKeys
+        html = html + '<p>%s</p>' % self.entreeIDs
         html = html + '</div>'
         return html
     
