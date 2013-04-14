@@ -64,6 +64,11 @@ class Menus(webapp2.RequestHandler):
         params = {}
         params['menus'] = models.getMeals(d, meal)
         self.response.out.write(template.render(params)) 
+
+class Search(webapp2.RequestHandler):
+    def get(self):
+        entrees = models.searchEntrees('enchilada')
+        self.response.out.write(entrees) 
         
 class Timeline(webapp2.RequestHandler):
     def get(self):
@@ -79,6 +84,7 @@ app = webapp2.WSGIApplication([
     ('/george', George),
     ('/load-data', LoadData),
     ('/menus', Menus),
+    ('/search', Search),
     ('/timeline', Timeline),
     ('/will', Will),
     ('/', Home)

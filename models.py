@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime, date, time, timedelta
 
 from google.appengine.ext import db
 
@@ -45,6 +45,23 @@ def getMealsAndEntrees():
     #db.delete(meals)
     #db.delete(entrees)
     return (meals, entrees)
+
+# Return entrees that match a search query
+def searchEntrees(q):
+    d = date.today()
+    dMin = d - timedelta(days=1)
+    dMax = d + timedelta(days=5)
+    q = db.GqlQuery("SELECT entreeIDs FROM Meal " +
+                    "WHERE date >= :1 " +
+                    "AND date <= :2",
+                    dMin, dMax)
+    ids = []
+    for meal in q.run():
+        ids = ids + meal.entreeIDs
+    q = db.GqlQuery("SELECT * FROM Entree " +
+                    "WHERE id IN :1 ",
+                    ids)    
+    return q.run()
 
 # Return menus for home page
 def getMeals(d, type):
