@@ -58,5 +58,5 @@ def getMeals(d, type):
         hallId = halls[meal.hall]
         if hallId in menus:
             continue
-        menus[hallId] = meal.entreeKeys
+        menus[hallId] = Entree.get_by_id(meal.entreeIDs)
     return menus

@@ -30,9 +30,9 @@
 		{% for menu in menus %}
 			<td id="{{ menu }}-items">
 				<ul>
-					{% for meal in menus[menu] %}
+					{% for entree in menus[menu] %}
 						<li class="item">
-							{{ meal }}
+							{{ entree.name }}
 						</li>
 					{% endfor %}
 				</ul>

@@ -63,7 +63,7 @@ class Menus(webapp2.RequestHandler):
         meal = self.request.get('meal')
         params = {}
         params['menus'] = models.getMeals(d, meal)
-        self.response.out.write(template.render(params)) 
+        self.response.out.write(template.render(params))
         
 class Timeline(webapp2.RequestHandler):
     def get(self):
