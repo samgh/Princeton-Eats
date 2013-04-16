@@ -172,6 +172,7 @@ header #search input {
 	width: 100%;
 	float: left;
 	text-align: center;
+	position: relative;
 }
 
 #menus-table {
@@ -192,4 +193,20 @@ header #search input {
 
 #menus-table li {
 	margin: 1.1em 0;
+}
+
+#overlay {
+	width: 960px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	background-color: grey;
+	opacity: 0.4;
+}
+
+#ajax-loader {
+	position: absolute;
+	top: 0;
+	left: 472px;
 }

@@ -40,11 +40,16 @@ function refreshMeals() {
 		meal: meal, 
 		day: day
 	};
+	$("#ajax-loader").show();
+	$("#overlay").show();
 	$.ajax({
 		url: '/menus',
 		data: data,
 		success: function(r) {
+			//setTimeout(function() {
 			$('#menus-container').html(r);
+			$('#ajax-loader').hide();
+			$('#overlay').hide();//}, 500);
 		},
 		error: function(r) {
 			console.log(r);

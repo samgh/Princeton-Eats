@@ -9,23 +9,28 @@
     	<script src="/js/main.js"></script>
   	</head>
   	<body>
-<!--  		<header>
-   	   		<div id="header-container">
-        		<div id="logo-container">
-          			<a href="/">
-            			<img src="/images/logo.png" alt="princeton eats logo" />
-          			</a>
-        		</div>
-        		<div id="search-container">
-          			<form id="search">
-            			<input type="text" name="search" placeholder="Search">
-          			</form>
-        		</div>
-      		</div>
-    	</gheader>
-      <section id="filters">
+      <header>
+        <div id="header-container">
+          <div id="logo-container">
+              <a href="/">
+                <img src="/images/logo.png" alt="princeton eats logo" />
+              </a>
+          </div>
+          <div id="search-container">
+              <form id="search">
+                <input type="text" name="search" placeholder="Search">
+              </form>
+          </div>
+          <div id="advanced-search-container">
+            <a href="/" id="advanced-search">Advanced Search</a>
+          </div>
+          <div id="filters-button-container">
+            <button id="filters-button" type="button">Filters</button>
+          </div>
+        </div>
+      </header>
+      <section id="filters"> 
         <div id="filters-container">
-          <button id="filters-button" type="button">Filters</button>
           <form id="filters-form">
             <input type="checkbox" name="allergen" value="milk">Milk
             <input type="checkbox" name="allergen" value="eggs">Eggs
@@ -37,42 +42,6 @@
           </form>
         </div>
       </section>
-    -->
-        <header>
-          <div id="header-container">
-            <div id="logo-container">
-                <a href="/">
-                  <img src="/images/logo.png" alt="princeton eats logo" />
-                </a>
-            </div>
-            <div id="search-container">
-                <form id="search">
-                  <input type="text" name="search" placeholder="Search">
-                </form>
-            </div>
-            <div id="advanced-search-container">
-              <a href="/" id="advanced-search">Advanced Search</a>
-            </div>
-            <div id="filters-button-container">
-              <button id="filters-button" type="button">Filters</button>
-            </div>
-          </div>
-        </header>
-        <section id="filters"> 
-          <div id="filters-container">
-            <form id="filters-form">
-              <input type="checkbox" name="allergen" value="milk">Milk
-              <input type="checkbox" name="allergen" value="eggs">Eggs
-              <input type="checkbox" name="allergen" value="fish">Fish
-              <input type="checkbox" name="allergen" value="shellfish">Shellfish/Crustacean
-              <input type="checkbox" name="allergen" value="wheat">Wheat
-              <input type="checkbox" name="allergen" value="soy">Soy
-              <button id="clear-filters" type="button">Clear</button>
-            </form>
-          </div>
-        </section>
-
-
   		<section class="main">
   			{% block content %}{% endblock %}
   		</section>
