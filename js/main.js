@@ -50,6 +50,7 @@ function refreshMeals() {
 			$('#menus-container').html(r);
 			$('#ajax-loader').hide();
 			$('#overlay').hide();//}, 500);
+			setMenuListeners();
 		},
 		error: function(r) {
 			console.log(r);
@@ -63,6 +64,44 @@ function setDay(d) {
 	var month = d.getMonth() + 1;
 	var year = d.getFullYear();
 	day = month + '/' + date + '/' + year;
+}
+
+// Set entree events
+function setMenuListeners() {
+	$('.item').on('click', function() {
+		var el = $(this);
+		var id = $(this).data('entreeid');
+		$.get('/entree?id=' + id, function(r) {
+			showEntree(el, r);
+		});
+	});
+}
+
+// Show entree
+function showEntree(entreeEl, entreeHtml) {
+	entreeEl.qtip({
+	    content: {
+	    	text: entreeHtml,
+	    },
+	    position: {
+	    	my: 'top center',
+	    	at: 'bottom center',
+	    	target: entreeEl
+	    },
+	    hide: {
+	    	event: 'unfocus'
+	    },
+	    show: {
+	    	event: 'click',
+	    	ready: true
+	    },
+	    events: {
+	    	render: function() {
+				//Global.set_notification_listeners();				    	
+	    	}
+	    },
+	    style: 'qtip-shadow qtip-rounded qtip-light'
+	});
 }
 
 $(function() {

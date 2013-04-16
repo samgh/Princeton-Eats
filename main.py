@@ -29,11 +29,15 @@ import models
 jinja = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
-class George(webapp2.RequestHandler):
+class Entree(webapp2.RequestHandler):
     def get(self):
-        data = menuparser.getData()
-        self.response.write(data)
- 
+        entreeID = self.request.get('id')
+        entreeID = int(float(entreeID))
+        entree = models.Entree.get_by_id(entreeID)
+        params = { 'entree':entree }
+        template = jinja.get_template('templates/pieces/entree.html')
+        self.response.out.write(template.render(params))
+
 class Home(webapp2.RequestHandler):
     def get(self):
         template = jinja.get_template('templates/home.html')
@@ -75,17 +79,11 @@ class Timeline(webapp2.RequestHandler):
         template = jinja.get_template('templates/timeline.html')
         self.response.out.write(template.render({}))
 
-class Will(webapp2.RequestHandler):
-    def get(self):
-        data = menuscraper.getData()
-        self.response.write(data.html_string())
-
 app = webapp2.WSGIApplication([
-    ('/george', George),
+    ('/entree', Entree),
     ('/load-data', LoadData),
     ('/menus', Menus),
     ('/search', Search),
     ('/timeline', Timeline),
-    ('/will', Will),
     ('/', Home)
 ], debug=True)

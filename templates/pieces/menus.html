@@ -31,7 +31,7 @@
 			<td id="{{ menu }}-items">
 				<ul>
 					{% for entree in menus[menu] %}
-						<li class="item">
+						<li class="item" data-entreeid="{{ entree.key().id() }}">
 							{{ entree.name }}
 						</li>
 					{% endfor %}

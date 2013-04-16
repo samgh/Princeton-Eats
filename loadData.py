@@ -59,5 +59,3 @@ def constructModels(hall, menu, meal):
     m.entreeIDs = entreeIDs
 
     return (m, entrees)
-
-#load()

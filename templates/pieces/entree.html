@@ -1,0 +1,9 @@
+ingredients: 
+{% for ingredient in entree.ingredients %}
+	{{ ingredient }}
+{% endfor %}
+<br />
+allergens:
+{% for allergen in entree.allergens %}
+	{{ allergen }}
+{% endfor %}
