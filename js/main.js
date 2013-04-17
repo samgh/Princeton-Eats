@@ -2,6 +2,9 @@ var meal,
 	day;
 
 $(function() {
+	// Hide filters
+	$("#filters-form").hide();
+	
 	// Init
 	initMealSelection();
 	initDaySelection();
@@ -51,6 +54,7 @@ function refreshMeals() {
 			$('#ajax-loader').hide();
 			$('#overlay').hide();//}, 500);
 			setMenuListeners();
+			setFilters();
 		},
 		error: function(r) {
 			console.log(r);
@@ -104,9 +108,8 @@ function showEntree(entreeEl, entreeHtml) {
 	});
 }
 
-$(function() {
+function setFilters() {
 	// showing and hiding filters
-	$("#filters-form").hide();
 	$("#filters-button").click(function() {
 		$("#filters-form").toggle("slow");
 	});
@@ -139,4 +142,4 @@ $(function() {
 			$("." + $(this).attr('value')).css("color", "black");
 		});
 	});
-});
+};
