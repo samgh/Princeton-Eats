@@ -19,7 +19,16 @@ function initMealSelection() {
 		meal = $(this).attr('id');
 		refreshMeals();
 	});
-	meal = 'lunch'; // Default, needs logic
+	var d = new Date();
+	if (d.getHours() < 11) {
+		meal = 'breakfast';
+	} else if (d.getHours() < 14) {
+		meal = 'lunch';
+	} else if (d.getHours() < 20) {
+		meal = 'dinner';
+	} else {
+		meal = 'breakfast';
+	}
 }
 
 // Init day selection
@@ -44,15 +53,14 @@ function refreshMeals() {
 		day: day
 	};
 	$("#ajax-loader").show();
-	$("#overlay").show();
+	$('#menus-table').css("opacity", "0.5")
 	$.ajax({
 		url: '/menus',
 		data: data,
 		success: function(r) {
-			//setTimeout(function() {
 			$('#menus-container').html(r);
 			$('#ajax-loader').hide();
-			$('#overlay').hide();//}, 500);
+			$('#menus-table').css("opacity", "1")
 			setMenuListeners();
 			setFilters();
 		},
