@@ -8,9 +8,9 @@ $(function() {
 	// Init
 	initMealSelection();
 	initDaySelection();
-	
 	// Trigger a meal selection
 	$('#meal-selector-form input[id=' + meal + ']').trigger('click');
+
 });
 
 //Init meal selections
@@ -19,15 +19,23 @@ function initMealSelection() {
 		meal = $(this).attr('id');
 		refreshMeals();
 	});
+	selectMeal();
+}
+
+// Auto meal selection
+function selectMeal() {
 	var d = new Date();
-	if (d.getHours() < 11) {
-		meal = 'breakfast';
-	} else if (d.getHours() < 14) {
+	if (d.getHours() < 14) {
 		meal = 'lunch';
 	} else if (d.getHours() < 20) {
 		meal = 'dinner';
 	} else {
 		meal = 'breakfast';
+	}
+	if (d.getUTCDay() != 0 && d.getUTCDay() != 7) {
+		if (d.getHours() < 11) {
+			meal = 'breakfast';
+		}
 	}
 }
 
@@ -43,6 +51,12 @@ function initDaySelection() {
 			refreshMeals();
 		}
 	}).datepicker('setDate', '+0');
+
+	var d = new Date();
+	if (d.getHours() > 20) {
+		datepicker.datepicker('setDate', '+1');
+	}
+
 	setDay(datepicker.datepicker('getDate'));
 }
 
@@ -53,14 +67,28 @@ function refreshMeals() {
 		day: day
 	};
 	$("#ajax-loader").show();
-	$('#menus-table').css("opacity", "0.5")
+	$('#menus-table #meal').css("opacity", "0.5")
 	$.ajax({
 		url: '/menus',
 		data: data,
 		success: function(r) {
 			$('#menus-container').html(r);
+			var selectedDay = new Date(day);
+			if (selectedDay.getDay() == 0 || selectedDay.getDay() == 6) {
+				$('#breakfast').hide();
+				$("label[for='breakfast']").hide();
+				if ($('#meal-selector-form input:radio[name=meal]')[0].checked) {
+					$('#meal-selector-form input[id=lunch]').trigger('click');
+					$("#meal-selector-form label[for='lunch']").html("Brunch");
+				}
+			}
+			else {
+				$('#breakfast').show();
+				$("label[for='breakfast']").show();
+				$("#meal-selector-form label[for='lunch']").html("Lunch");
+			}
 			$('#ajax-loader').hide();
-			$('#menus-table').css("opacity", "1")
+			$('#menus-table #meal').css("opacity", "1")
 			setMenuListeners();
 			setFilters();
 		},
@@ -118,8 +146,10 @@ function showEntree(entreeEl, entreeHtml) {
 
 function setFilters() {
 	// showing and hiding filters
+	$("#filters-button").unbind("click");
 	$("#filters-button").click(function() {
 		$("#filters-form").toggle("slow");
+		console.log("1");
 	});
 
 	// handling checking and unchecking of filters
