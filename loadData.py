@@ -31,11 +31,12 @@ def constructModels(hall, menu, meal):
     # Get entree models
     entrees = []
     entreeIDs = []
+    hallID = models.halls[hall['name']]
     for entree in meal['entrees']:
         key = entree['name']
         e = models.Entree()
         e.name = entree['name']
-        e.protoname = entree['name'] + "|" + hall['name']
+        e.protoname = entree['name'] + "|" + hallID
         e.allergens = entree['allergens']
         e.ingredients = entree['ingredients']
         entrees.append(e)
@@ -54,7 +55,7 @@ def constructModels(hall, menu, meal):
     # Construct meals
     m = models.Meal()
     m.date = d
-    m.hall = hall['name']
+    m.hall = hallID
     m.type = meal['type']
     m.entreeIDs = entreeIDs
 

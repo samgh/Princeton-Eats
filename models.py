@@ -63,6 +63,19 @@ def searchEntrees(q):
                     ids)    
     return q.run()
 
+# Return all meals for a hall for a day
+def getHallMeals(d, hall):
+    meals = {}
+    q = db.GqlQuery("SELECT * FROM Meal " +
+                    "WHERE hall = :1 " +
+                    "AND date = :2",
+                    hall, d)
+    for meal in q.run():
+        if meal.type in meals:
+            continue
+        meals[meal.type] = Entree.get_by_id(meal.entreeIDs)
+    return meals   
+
 # Return menus for home page
 def getMeals(d, type):
     menus = {}
@@ -74,8 +87,7 @@ def getMeals(d, type):
                     "ORDER BY hall ASC",
                     type, d)
     for meal in q.run():
-        hallId = halls[meal.hall]
-        if hallId in menus:
+        if meal.hall in menus:
             continue
-        menus[hallId] = Entree.get_by_id(meal.entreeIDs)
+        menus[meal.hall] = Entree.get_by_id(meal.entreeIDs)
     return menus

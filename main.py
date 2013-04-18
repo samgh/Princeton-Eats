@@ -39,9 +39,21 @@ class Entree(webapp2.RequestHandler):
         template = jinja.get_template('templates/pieces/entree.html')
         self.response.out.write(template.render(params))
 
+class Hall(webapp2.RequestHandler):
+    def get(self):
+        template = jinja.get_template('templates/pieces/hall.html')
+        hall = self.request.get('hall')
+        d = self.request.get('day')
+        d = datetime.strptime(d, '%m/%d/%Y').date()
+        self.response.out.write(hall)
+        self.response.out.write(d)
+        params = {}
+        params['meals'] = models.getHallMeals(d, hall)
+        self.response.out.write(template.render(params))         
+
 class Home(webapp2.RequestHandler):
     def get(self):
-        if (isMobile(self.request) == False):
+        if (isMobile(self.request)):
             template = jinja.get_template('templates/homeMobile.html')
             self.response.out.write(template.render({})) 
             return
@@ -86,6 +98,7 @@ class Timeline(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
     ('/entree', Entree),
+    ('/hall', Hall),
     ('/load-data', LoadData),
     ('/menus', Menus),
     ('/search', Search),

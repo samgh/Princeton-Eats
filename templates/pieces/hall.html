@@ -1,0 +1,10 @@
+<h1>Hall</h1>
+{{ meals }}
+{% for meal in meals %}
+	<h2>Meal</h2>
+	{{ meal }}
+	{% for entree in meals[meal] %}
+		{{ entree.name }}
+	{% endfor %}
+	<br />
+{% endfor %}
