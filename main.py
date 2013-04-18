@@ -20,6 +20,7 @@ import webapp2
 import jinja2
 import os
 from datetime import datetime, date, time
+from detectmobile import isMobile
 
 import menuparser
 import loadData
@@ -40,6 +41,10 @@ class Entree(webapp2.RequestHandler):
 
 class Home(webapp2.RequestHandler):
     def get(self):
+        if (isMobile(self.request) == False):
+            template = jinja.get_template('templates/homeMobile.html')
+            self.response.out.write(template.render({})) 
+            return
         template = jinja.get_template('templates/home.html')
         self.response.out.write(template.render({})) 
 
