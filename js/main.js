@@ -53,7 +53,7 @@ function initDaySelection() {
 	}).datepicker('setDate', '+0');
 
 	var d = new Date();
-	if (d.getHours() > 20) {
+	if (d.getHours() >= 20) {
 		datepicker.datepicker('setDate', '+1');
 	}
 
