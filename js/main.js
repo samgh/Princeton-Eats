@@ -10,7 +10,6 @@ $(function() {
 	initDaySelection();
 	// Trigger a meal selection
 	$('#meal-selector-form input[id=' + meal + ']').trigger('click');
-
 });
 
 //Init meal selections
@@ -43,12 +42,9 @@ function selectMeal() {
 function mealSelectors() {
 	$('#meal-selector-form :radio').click(function() {
 		$('#meal-selector-form :radio').each(function() {
-			if (this.checked) {
-				$('label[for=' + this.id + ']').css("background", "#888");
-			} else {
-				$('label[for=' + this.id + ']').css("background", "#ccc");
-			}
+			$('label[for=' + this.id + ']').css("background", "#ccc");
 		});
+		$('label[for=' + meal + ']').css("background", "#888");
 	});
 }
 
@@ -104,6 +100,7 @@ function refreshMeals() {
 			$('#menus-table #meal').css("opacity", "1")
 			setMenuListeners();
 			setFilters();
+			mealSelectors();
 		},
 		error: function(r) {
 			console.log(r);
@@ -161,7 +158,7 @@ function setFilters() {
 	// showing and hiding filters
 	$("#filters-button").unbind("click");
 	$("#filters-button").click(function() {
-		$("#filters-form").toggle("slow");
+		$("#filters-form").slideToggle("slow");
 		console.log("1");
 	});
 

@@ -102,6 +102,7 @@ header #search-container {
 	float: left;
 	width: 350px;
 	height: 100%;
+	margin: 0 25px 0 40px;
 }
 
 header #search {
@@ -119,7 +120,7 @@ header #search input {
 
 #advanced-search-container {
 	margin: 10px 0 0 10px;
-	width: 350px;
+	width: 250px;
 	float: left;
 }
 
@@ -136,6 +137,12 @@ header #search input {
 #filters-container {
 	width: 960px;
 	margin: 0 auto;
+}
+
+#filters-form {
+	width: auto;
+	text-align: center;
+	padding-bottom: 5px;
 }
 /* home */
 #content-container {
@@ -159,7 +166,13 @@ header #search input {
 }
 
 #date-selector-container form {
-	height: 30px;
+	height: 100%;
+}
+
+#date-selector-container #datepicker {
+	height: 22px;
+	text-align: center;
+	font-size: 1em
 }
 
 #meal-selector-container {
@@ -174,8 +187,8 @@ header #search input {
 }
 
 #meal-selector-container label {
-	background: #aaa;
-	padding: 4px 10px;
+	background: #ccc;
+	padding: 5px 10px 4px;
 	border-top: gray solid 1px;
 	border-bottom: gray solid 1px;
 }
@@ -194,6 +207,7 @@ header #search input {
 	height: 100%;
 	border-left: gray solid 1px;
 	border-right: gray solid 1px;
+	margin: 0 auto;
 }
 
 
