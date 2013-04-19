@@ -16,8 +16,9 @@ time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	font-size: 100%;
+	font-size: 1em;
 	font: inherit;
+	font-family: Verdana, Geneva, sans-serif;
 	vertical-align: baseline;
 }
 article, aside, details, figcaption, figure, 
@@ -140,6 +141,7 @@ header #search input {
 #content-container {
 	width: 960px;
 	margin: 0 auto;
+	position: relative;
 }
 
 #controls {
@@ -167,6 +169,38 @@ header #search input {
 	float: left;
 }
 
+#meal-selector-container input {
+	display: none;
+}
+
+#meal-selector-container label {
+	background: #aaa;
+	padding: 4px 10px;
+	border-top: gray solid 1px;
+	border-bottom: gray solid 1px;
+}
+
+#meal-selector-container label:hover {
+	background: #a9a9a9 !important;
+}
+
+#meal-selector-form {
+	height: 100%;
+}
+
+#meal-selector-form table {
+	text-align: center;
+	vertical-align: middle;
+	height: 100%;
+	border-left: gray solid 1px;
+	border-right: gray solid 1px;
+}
+
+
+#meal-selector-form td {
+	text-align: center;
+	vertical-align: middle;
+}
 #menus-container {
 	height: auto;
 	width: 100%;
@@ -177,6 +211,8 @@ header #search input {
 
 #menus-table {
 	width: 100%;
+	float: left;
+	text-align: center;
 }
 
 #menus-table tr {
@@ -192,7 +228,11 @@ header #search input {
 }
 
 #menus-table li {
-	margin: 1.1em 0;
+	padding: 0.5em 0;
+}
+
+#menus-table li:hover {
+	background-color: #ddd;
 }
 
 #ajax-loader {

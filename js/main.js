@@ -37,6 +37,19 @@ function selectMeal() {
 			meal = 'breakfast';
 		}
 	}
+	mealSelectors();
+}
+
+function mealSelectors() {
+	$('#meal-selector-form :radio').click(function() {
+		$('#meal-selector-form :radio').each(function() {
+			if (this.checked) {
+				$('label[for=' + this.id + ']').css("background", "#888");
+			} else {
+				$('label[for=' + this.id + ']').css("background", "#ccc");
+			}
+		});
+	});
 }
 
 // Init day selection
@@ -75,15 +88,15 @@ function refreshMeals() {
 			$('#menus-container').html(r);
 			var selectedDay = new Date(day);
 			if (selectedDay.getDay() == 0 || selectedDay.getDay() == 6) {
-				$('#breakfast').hide();
+				//$('#breakfast').hide();
+				$("#meal-selector-form label[for='lunch']").html("Brunch");
 				$("label[for='breakfast']").hide();
 				if ($('#meal-selector-form input:radio[name=meal]')[0].checked) {
 					$('#meal-selector-form input[id=lunch]').trigger('click');
-					$("#meal-selector-form label[for='lunch']").html("Brunch");
 				}
 			}
 			else {
-				$('#breakfast').show();
+				//$('#breakfast').show();
 				$("label[for='breakfast']").show();
 				$("#meal-selector-form label[for='lunch']").html("Lunch");
 			}
