@@ -54,6 +54,7 @@ class Hall(webapp2.RequestHandler):
 class Home(webapp2.RequestHandler):
     def get(self):
         if (isMobile(self.request)):
+        #if (True):
             template = jinja.get_template('templates/homeMobile.html')
             self.response.out.write(template.render({})) 
             return
