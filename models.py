@@ -90,4 +90,7 @@ def getMeals(d, type):
         if meal.hall in menus:
             continue
         menus[meal.hall] = Entree.get_by_id(meal.entreeIDs)
-    return menus
+    return [menus['butlerwilson'], 
+            menus['forbes'],
+            menus['rockymathey'], 
+            menus['whitman']]
