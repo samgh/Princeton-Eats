@@ -16,6 +16,7 @@ class Entree(db.Model):
     ingredients = db.StringListProperty()
     name = db.StringProperty()
     protoname = db.StringProperty()
+    hexhash = db.StringProperty()
     def html_string(self):
         html = '<div>'
         html = html + '<p><b>%s</b></p>' % self.name
@@ -45,6 +46,23 @@ def getMealsAndEntrees():
     #db.delete(meals)
     #db.delete(entrees)
     return (meals, entrees)
+
+def getEntreesByHashes(hashes):
+    q = db.GqlQuery("SELECT * FROM Entree " +
+                    "WHERE hexhash IN :1 ",
+                    hashes)
+    entrees = []
+    for entree in q.run():
+        entrees.append(entree)
+    return entrees
+
+def getMealsByDateHallType(date, hall, mtype):
+    q = db.GqlQuery("SELECT * FROM Meal " +
+        "WHERE hall = :1 " +
+        "AND date = :2 " +
+        "AND type = :3 ",
+        hall, date, mtype)
+    return q.run()
 
 # Return entrees that match a search query
 def searchEntrees(q):
