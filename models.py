@@ -12,6 +12,7 @@ halls = {
 
 # Entree data type, keyed by name
 class Entree(db.Model):
+    date = db.DateProperty() # What day is this entree being served
     allergens = db.StringListProperty()
     ingredients = db.StringListProperty()
     name = db.StringProperty()
@@ -51,16 +52,11 @@ def searchEntrees(q):
     d = date.today()
     dMin = d - timedelta(days=1)
     dMax = d + timedelta(days=5)
-    q = db.GqlQuery("SELECT entreeIDs FROM Meal " +
-                    "WHERE date >= :1 " +
-                    "AND date <= :2",
-                    dMin, dMax)
-    ids = []
-    for meal in q.run():
-        ids = ids + meal.entreeIDs
     q = db.GqlQuery("SELECT * FROM Entree " +
-                    "WHERE id IN :1 ",
-                    ids)    
+                    "WHERE date >= :1 " +
+                    "AND date <= :2" +
+                    "AND protoname like %:3%",
+                    dMin, dMax, q)
     return q.run()
 
 # Return all meals for a hall for a day

@@ -28,6 +28,12 @@ def load(offset=0):
     return (meals, entrees)
     
 def constructModels(hall, menu, meal):
+    # Get date
+    dt = datetime.now()
+    dateStr = menu['date'] + " %d" % dt.year
+    dt = datetime.strptime(dateStr, "%A, %B %d %Y")
+    d = dt.date()
+
     # Get entree models
     entrees = []
     entreeIDs = []
@@ -35,6 +41,7 @@ def constructModels(hall, menu, meal):
     for entree in meal['entrees']:
         key = entree['name']
         e = models.Entree()
+        e.date = d
         e.name = entree['name']
         e.protoname = entree['name'] + "|" + hallID
         e.allergens = entree['allergens']
@@ -45,12 +52,6 @@ def constructModels(hall, menu, meal):
     eKeys = db.put(entrees)
     for eKey in eKeys:
         entreeIDs.append(eKey.id())
-    
-    # Get date
-    dt = datetime.now()
-    dateStr = menu['date'] + " %d" % dt.year
-    dt = datetime.strptime(dateStr, "%A, %B %d %Y")
-    d = dt.date()
     
     # Construct meals
     m = models.Meal()
