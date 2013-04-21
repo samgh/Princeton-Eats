@@ -89,7 +89,8 @@ class Menus(webapp2.RequestHandler):
 
 class Search(webapp2.RequestHandler):
     def get(self):
-        entrees = models.searchEntrees('enchilada')
+        q = self.request.get('q')
+        entrees = models.searchEntrees(q)
         self.response.out.write(entrees) 
         
 class Timeline(webapp2.RequestHandler):

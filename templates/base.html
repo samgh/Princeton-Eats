@@ -19,8 +19,8 @@
               </a>
           </div>
           <div id="search-container">
-              <form id="search">
-                <input type="text" name="search" placeholder="Search">
+              <form id="search" action="/search">
+                <input type="text" name="q" placeholder="Search">
               </form>
           </div>
           <div id="advanced-search-container">
@@ -34,12 +34,18 @@
       <section id="filters"> 
         <div id="filters-container">
           <form id="filters-form">
-            <input type="checkbox" name="allergen" value="Milk">Milk
-            <input type="checkbox" name="allergen" value="Eggs">Eggs
-            <input type="checkbox" name="allergen" value="Fish">Fish
-            <input type="checkbox" name="allergen" value="Shellfish">Shellfish/Crustacean
-            <input type="checkbox" name="allergen" value="Wheat">Wheat
-            <input type="checkbox" name="allergen" value="Soybeans">Soybeans
+            <input type="checkbox" name="allergen" id="milk" value="Milk">
+            <label for="milk">Milk</label>
+            <input type="checkbox" name="allergen" id="eggs" value="Eggs">
+            <label for="eggs">Eggs</label>
+            <input type="checkbox" name="allergen" id="fish" value="Fish">
+            <label for="fish">Fish</label>
+            <input type="checkbox" name="allergen" id="shellfish" value="Shellfish">
+            <label for="shellfish">Shellfish/Crustacean</label>
+            <input type="checkbox" name="allergen" id="wheat" value="Wheat">
+            <label for="wheat">Wheat</label>
+            <input type="checkbox" name="allergen" id="soybeans" value="Soybeans">
+            <label for="soybeans">Soybeans</label>
             <button id="clear-filters" type="button">Clear</button>
           </form>
         </div>

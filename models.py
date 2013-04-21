@@ -15,7 +15,7 @@ class Entree(db.Model):
     allergens = db.StringListProperty()
     ingredients = db.StringListProperty()
     name = db.StringProperty()
-    protoname = db.StringProperty();
+    protoname = db.StringProperty()
     def html_string(self):
         html = '<div>'
         html = html + '<p><b>%s</b></p>' % self.name
