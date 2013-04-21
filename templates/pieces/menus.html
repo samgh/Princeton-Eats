@@ -1,23 +1,23 @@
 <table id="menus-table">
 	<tr id="logos">
-		<td id="forbes-logo-container">
-			<img src="images/forbes.png" />
-		</td>
-		<td id="whitman-logo-container">
-			<img src="images/whitman.png" />
-		</td>
 		<td id="butlerwilson-logo-container">
-			<img src="images/butlerwilson.png" />
+			<img src="/images/butlerwilson.png" />
+		</td>
+		<td id="forbes-logo-container">
+			<img src="/images/forbes.png" />
 		</td>
 		<td id="rockymathey-logo-container">
-			<img src="images/rockymathey.png" />
+			<img src="/images/rockymathey.png" />
+		</td>
+		<td id="whitman-logo-container">
+			<img src="/images/whitman.png" />
 		</td>
 	</tr>
 	<tr id="meal">
-		{% for menu in menus %}
-			<td id="{{ menu }}-items">
+		{% for entrees in menus %}
+			<td id="menu-items">
 				<ul>
-					{% for entree in menus[menu] %}
+					{% for entree in entrees %}
 						<li class="item {% for allergen in entree.allergens %} {{ allergen }}{% endfor %}" data-entreeid="{{ entree.key().id() }}">
 							{{ entree.name }}
 						</li>

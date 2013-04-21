@@ -16,7 +16,7 @@ class Entree(db.Model):
     allergens = db.StringListProperty()
     ingredients = db.StringListProperty()
     name = db.StringProperty()
-    protoname = db.StringProperty();
+    protoname = db.StringProperty()
     def html_string(self):
         html = '<div>'
         html = html + '<p><b>%s</b></p>' % self.name
@@ -86,4 +86,7 @@ def getMeals(d, type):
         if meal.hall in menus:
             continue
         menus[meal.hall] = Entree.get_by_id(meal.entreeIDs)
-    return menus
+    return [menus['butlerwilson'], 
+            menus['forbes'],
+            menus['rockymathey'], 
+            menus['whitman']]
