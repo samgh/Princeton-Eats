@@ -1,18 +1,134 @@
 /* mobile.css */
 
-header #header-container {
-	width: 100%;
+/* CSS Reset */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 1em;
+	font: inherit;
+	font-family: Verdana, Geneva, sans-serif;
+	vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
-header #logo-container {
-	width: auto;
-	margin: 0;
+/* header */
+
+header {
+	background-color: #ff8511;
+	width: 100%;
+	height: 50px;
+}
+
+#logo-container {
+	width: 20%;
+	float: left;
 }
 
 #logo-container img {
-	height: 60px;
+	height: 50px;
 }
 
-header #date-selector-container {
+#date-selector-container {
+	width: 42%;
+	height: 50px;
+	float: left;
+	margin-right: 3%;
+}
+
+#date-selector-container select {
+	height: 30px;
+	margin: 10px 0;
+	font-size: 1em;
+	width: 100%;
+}
+
+#filters-button-container {
+	width: 20%;
+	float: left;
+}
+
+#filters-button-container button {
+	height: 30px;
+	margin: 15px 0;
+}
+
+#search-button-container {
+	width: 15%;
+	float: left;
+	text-align: center;
+}
+
+#search-button-container #search-button {
+	height: 30px;
+	margin: 10px 0;
+}
+
+#search-button-container img {
+	height: 30px;
 	width: auto;
+	margin: 0 auto;
+}
+
+#search {
+	width: 100%;
+	background-color: #ff8511;
+}
+
+#search input {
+	width: 80%;
+	margin: 0 5% 5px;
+}
+
+#filters {
+	background-color: #ff8511;
+}
+
+#dining-hall-selector-container {
+	width: 100%;
+	float: left;
+	text-align: center;
+}
+
+.dining-hall-selector {
+	width: 25%;
+	float: left;
+}
+
+.dining-hall-selector img {
+	height: 60px;
 }

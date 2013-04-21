@@ -159,7 +159,6 @@ function setFilters() {
 	$("#filters-button").unbind("click");
 	$("#filters-button").click(function() {
 		$("#filters-form").slideToggle("slow");
-		console.log("1");
 	});
 
 	// handling checking and unchecking of filters
