@@ -90,8 +90,10 @@ class Menus(webapp2.RequestHandler):
 class Search(webapp2.RequestHandler):
     def get(self):
         q = self.request.get('q')
-        entrees = models.searchEntrees(q)
-        self.response.out.write(entrees) 
+        #entrees = models.searchEntrees(q)
+        template = jinja.get_template('templates/search.html')
+        params = { 'results':['test1', 'test2'] }
+        self.response.out.write(template.render(params)) 
         
 class Timeline(webapp2.RequestHandler):
     def get(self):

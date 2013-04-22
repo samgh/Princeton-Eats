@@ -1,0 +1,13 @@
+{% extends 'templates/base.html' %}
+{% block content %}
+<div id="content-container">
+	<h2>Search Results</h2>
+	<div id="search-results-container">
+		<table id="search-table">
+			{% for result in results %}
+				{% include 'templates/pieces/searchResult.html' %}
+			{% endfor %}
+		</table>
+	</div>
+</div>
+{% endblock %}
