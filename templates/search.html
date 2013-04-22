@@ -1,10 +1,10 @@
 {% extends 'templates/base.html' %}
 {% block content %}
 <div id="content-container">
-	<h2>Search Results</h2>
+	<h2>Search Results for "{{ q }}"</h2>
 	<div id="search-results-container">
 		<table id="search-table">
-			{% for result in results %}
+			{% for entree in entrees %}
 				{% include 'templates/pieces/searchResult.html' %}
 			{% endfor %}
 		</table>
