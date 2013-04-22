@@ -1,6 +1,8 @@
 from datetime import datetime, date, time, timedelta
 
 from google.appengine.ext import db
+import tzsearch
+import logging
 
 # Identifiers for dining halls
 halls = {
@@ -11,7 +13,7 @@ halls = {
 }
 
 # Entree data type, keyed by name
-class Entree(db.Model):
+class Entree(tzsearch.SearchableModel):
     date = db.DateProperty() # What day is this entree being served
     allergens = db.StringListProperty()
     ingredients = db.StringListProperty()
@@ -52,12 +54,14 @@ def searchEntrees(q):
     d = date.today()
     dMin = d - timedelta(days=1)
     dMax = d + timedelta(days=5)
-    q = db.GqlQuery("SELECT * FROM Entree " +
-                    "WHERE date >= :1 " +
-                    "AND date <= :2" +
-                    "AND protoname like %:3%",
-                    dMin, dMax, q)
-    return q.run()
+    query = Entree.all().search(q)
+    query =  query.filter('date >=', dMin)
+    query = query.filter('date <=', dMax)
+    results = []
+    for entree in query.run():
+        if q.lower() in entree.name.lower():
+            results.append(entree)
+    return results
 
 # Return all meals for a hall for a day
 def getHallMeals(d, hall):

@@ -10,6 +10,21 @@ indexes:
 # automatically uploaded to the admin console when you next deploy
 # your application using appcfg.py.
 
+- kind: Entree
+  properties:
+  - name: __searchable_text_index
+  - name: date
+
+- kind: Entree
+  properties:
+  - name: __searchable_text_index_name
+  - name: date
+
+- kind: Entree
+  properties:
+  - name: __searchable_text_index_name_
+  - name: date
+
 - kind: Meal
   properties:
   - name: date

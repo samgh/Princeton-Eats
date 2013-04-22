@@ -91,6 +91,8 @@ class Search(webapp2.RequestHandler):
     def get(self):
         q = self.request.get('q')
         entrees = models.searchEntrees(q)
+        for e in entrees:
+            self.response.out.write(e.html_string())
         self.response.out.write(entrees) 
         
 class Timeline(webapp2.RequestHandler):
