@@ -175,6 +175,12 @@ header #search input {
 	font-size: 1em
 }
 
+#date-selector-container .date-control {
+	cursor: pointer;
+	padding: 0 5px;
+	font-weight: bold;
+}
+
 #meal-selector-container {
 	text-align: center;
 	height: 30px;

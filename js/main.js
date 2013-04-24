@@ -53,8 +53,8 @@ function initDaySelection() {
 	var datepicker = $("#datepicker");
 	datepicker.datepicker({
 		dateFormat: 'DD, MM d',
-		minDate: "-1D", 
-		maxDate: "+5D",
+		minDate: "-1d", 
+		maxDate: "+5d",
 		onSelect: function() {
 			setDay(datepicker.datepicker('getDate'));
 			refreshMeals();
@@ -67,6 +67,18 @@ function initDaySelection() {
 	}
 
 	setDay(datepicker.datepicker('getDate'));
+
+	// Set previous and next controls
+	$('.date-control').on('click', function() {
+		var action = $(this).data('action');
+		var op = action == 'prev' ? -1 : 1;
+		var date = datepicker.datepicker('getDate');
+		date = new Date(date.getTime() + op * 24 * 60 * 60 * 1000);
+		datepicker.datepicker('setDate', date);
+		setDay(date);
+		refreshMeals();
+		return false;
+	});
 }
 
 // Refresh meals
