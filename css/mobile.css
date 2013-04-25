@@ -132,3 +132,7 @@ header {
 .dining-hall-selector img {
 	height: 60px;
 }
+
+#hall {
+	float: left;
+}
