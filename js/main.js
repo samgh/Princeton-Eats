@@ -159,10 +159,45 @@ function showEntree(entreeEl, entreeHtml) {
 	    },
 	    events: {
 	    	render: function() {
-				//Global.set_notification_listeners();				    	
+	    		setEntreeListeners();
 	    	}
 	    },
 	    style: 'qtip-shadow qtip-rounded qtip-light'
+	});
+}
+
+// Set entree listeners
+function setEntreeListeners() {
+	var ratings = $('.rating');
+	ratings.off('click');
+	ratings.on('click', function() {
+		var vote = $(this).parent().data('vote');
+		var action = $(this).data('action');
+
+		// Test
+		//console.log('vote:' + vote + '\taction:' + action);
+
+		// Validate
+		if (vote == 1 && action == 'up' || vote == -1 && action == 'down') {
+			return;
+		}
+
+		// Set styling
+		$(this).addClass('selected');
+		$(this).siblings().removeClass('selected');
+
+		// Set number
+		if (vote != 0) {
+			var numEl = $(this).siblings().find('.num');
+			var num = numEl.html();
+			numEl.html(parseInt(num) - 1);
+		}
+		var numEl = $(this).find('.num');
+		var num = numEl.html();
+		numEl.html(parseInt(num) + 1);
+
+		// Set vote
+		$(this).parent().data('vote', action == 'up' ? '1' : '-1');
 	});
 }
 

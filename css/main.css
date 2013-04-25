@@ -249,6 +249,7 @@ header #search input {
 
 #menus-table li {
 	padding: 0.5em 0;
+	cursor: pointer;
 }
 
 #menus-table li:hover {
@@ -259,4 +260,30 @@ header #search input {
 	position: absolute;
 	top: 0;
 	left: 472px;
+}
+
+.ratings {
+	height: 30px;
+	padding-top: 15px;
+}
+
+.ratings .rating {
+	float: left;
+	padding: 15px;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.ratings .rating .face {
+	height: 32px;
+	font-size: 36px;
+}
+
+.ratings .selected .face {
+	color: #ff8511;
+}
+
+.ratings .rating .num {
+	text-align: center;
+	font-size: 12px;
 }
