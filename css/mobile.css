@@ -57,6 +57,7 @@ header {
 #logo-container {
 	width: 20%;
 	float: left;
+	height: 50px;
 }
 
 #logo-container img {
@@ -122,6 +123,8 @@ header {
 	width: 100%;
 	float: left;
 	text-align: center;
+	background-color: gray;
+	padding: 5px 0;
 }
 
 .dining-hall-selector {
@@ -135,4 +138,10 @@ header {
 
 #hall {
 	float: left;
+	width: 100%;
+}
+
+.meal-header {
+	background-color: gray;
+	padding: 5px;
 }

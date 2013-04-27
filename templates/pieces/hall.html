@@ -1,11 +1,11 @@
-<h1>Hall</h1>
 {% for meal in meals %}
-	<h2>{{ meal }}</h2>
+	<h1 id="{{ meal }}-header" class="meal-header">{{ meal }}</h1>
 	<div id="{{ meal }}">
 		<ul>
 			{% for entree in meals[meal] %}
 				<li>{{ entree.name }}</li>
 			{% endfor %}
 		</ul>
-	<br />
+		<br />
+	</div>
 {% endfor %}
