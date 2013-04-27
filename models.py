@@ -92,11 +92,32 @@ def getHallMeals(d, hall):
                     "WHERE hall = :1 " +
                     "AND date = :2",
                     hall, d)
+    
+    # Set meal dictionaries
     for meal in q.run():
         if meal.type in meals:
             continue
         meals[meal.type] = Entree.get_by_id(meal.entreeIDs)
-    return meals   
+
+    # Set hall meal array
+    hallMeals = []
+    if 'breakfast' in meals:
+        hallMeals.append({ 
+            'type':'breakfast', 
+            'entrees':meals['breakfast']
+        })
+    if 'lunch' in meals:
+        hallMeals.append({ 
+            'type':'lunch', 
+            'entrees':meals['lunch']
+        })
+    if 'dinner' in meals:
+        hallMeals.append({ 
+            'type':'dinner',
+            'entrees':meals['dinner']
+        })
+
+    return hallMeals
 
 # Return menus for home page
 def getMeals(d, type):

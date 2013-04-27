@@ -1,36 +1,36 @@
 cron:
-- description: daily get menu 0
-  url: /load-data?offset=0
-  schedule: every 6 hours
-  timezone: America/New_York
+#- description: daily get menu 0
+#  url: /load-data?offset=0
+#  schedule: every 6 hours
+#  timezone: America/New_York
 
-- description: daily get menu 1
-  url: /load-data?offset=1
-  schedule: every 6 hours
-  timezone: America/New_York
+#- description: daily get menu 1
+#  url: /load-data?offset=1
+#  schedule: every 6 hours
+#  timezone: America/New_York
 
-- description: daily get menu 2
-  url: /load-data?offset=2
-  schedule: every 6 hours
-  timezone: America/New_York
+#- description: daily get menu 2
+#  url: /load-data?offset=2
+#  schedule: every 6 hours
+#  timezone: America/New_York
 
-- description: daily get menu 3
-  url: /load-data?offset=3
-  schedule: every 6 hours
-  timezone: America/New_York
+#- description: daily get menu 3
+#  url: /load-data?offset=3
+#  schedule: every 6 hours
+#  timezone: America/New_York
 
-- description: daily get menu 4
-  url: /load-data?offset=4
-  schedule: every 6 hours
-  timezone: America/New_York
+#- description: daily get menu 4
+#  url: /load-data?offset=4
+#  schedule: every 6 hours
+#  timezone: America/New_York
 
-- description: daily get menu 5
-  url: /load-data?offset=5
-  schedule: every 6 hours
-  timezone: America/New_York
+#- description: daily get menu 5
+#  url: /load-data?offset=5
+#  schedule: every 6 hours
+#  timezone: America/New_York
 
-- description: daily get menu 6
-  url: /load-data?offset=6
-  schedule: every 6 hours
-  timezone: America/New_York
+#- description: daily get menu 6
+#  url: /load-data?offset=6
+#  schedule: every 6 hours
+#  timezone: America/New_York
 
