@@ -22,6 +22,23 @@ class Entree(tzsearch.SearchableModel):
     hexhash = db.StringProperty()
     hall = db.StringProperty() # Dining hall
     type = db.StringProperty() # breakfast, lunch or dinner
+
+    # Ratings
+    upvotes = db.IntegerProperty()
+    upvoters = db.ListProperty(str)
+    downvotes = db.IntegerProperty()
+    downvoters = db.ListProperty(str)
+
+    def getDownvotes(self):
+        if self.downvotes == None:
+            return 0
+        return self.downvotes
+
+    def getUpvotes(self):
+        if self.upvotes == None:
+            return 0
+        return self.upvotes
+
     def formatted_date(self):
         return self.date.strftime('%A, %B %d')
     def html_string(self):
@@ -45,6 +62,42 @@ class Meal(db.Model):
         html = html + '</div>'
         return html
     
+# Return entree by id
+def getEntreeById(id, ip):
+    entree = Entree.get_by_id(id)
+    # Check user vote
+    entree.vote = 0
+    if ip in entree.upvoters:
+        entree.vote = 1
+    elif ip in entree.downvoters:
+        entree.vote = -1
+    return entree
+
+# Vote on entree by id
+def addEntreeVote(id, ip, vote):
+    # Get entree
+    entree = getEntreeById(id, ip)
+    
+    # Remove old votes
+    if ip in entree.upvoters:
+        entree.upvoters.remove(ip)
+    if ip in entree.downvoters:
+        entree.downvoters.remove(ip)
+
+    # Apply new vote
+    if vote == 1:
+        entree.upvoters.append(ip)
+    elif vote == -1:
+        entree.downvoters.append(ip)
+
+    # Update
+    del entree.vote
+    entree.upvoters.sort()
+    entree.downvoters.sort()
+    entree.upvotes = len(entree.upvoters)
+    entree.downvotes = len(entree.downvoters)
+    entree.put()
+
 # Return all meals and entrees
 def getMealsAndEntrees():
     meals = Meal.all().run()

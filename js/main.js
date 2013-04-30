@@ -171,33 +171,44 @@ function setEntreeListeners() {
 	var ratings = $('.rating');
 	ratings.off('click');
 	ratings.on('click', function() {
+		var el = $(this);
 		var vote = $(this).parent().data('vote');
+		var entreeID = $(this).parent().data('id');
 		var action = $(this).data('action');
-
-		// Test
-		//console.log('vote:' + vote + '\taction:' + action);
-
 		// Validate
 		if (vote == 1 && action == 'up' || vote == -1 && action == 'down') {
 			return;
 		}
 
-		// Set styling
-		$(this).addClass('selected');
-		$(this).siblings().removeClass('selected');
+		$.ajax({
+			url: '/entree',
+			data: {
+				id: entreeID,
+				vote: action == 'up' ? 1 : -1
+			},
+			type: 'POST',
+			success: function(r) {				
+				// Set styling
+				el.addClass('selected');
+				el.siblings().removeClass('selected');
 
-		// Set number
-		if (vote != 0) {
-			var numEl = $(this).siblings().find('.num');
-			var num = numEl.html();
-			numEl.html(parseInt(num) - 1);
-		}
-		var numEl = $(this).find('.num');
-		var num = numEl.html();
-		numEl.html(parseInt(num) + 1);
+				// Set number
+				if (vote != 0) {
+					var numEl = el.siblings().find('.num');
+					var num = numEl.html();
+					numEl.html(parseInt(num) - 1);
+				}
+				var numEl = el.find('.num');
+				var num = numEl.html();
+				numEl.html(parseInt(num) + 1);
 
-		// Set vote
-		$(this).parent().data('vote', action == 'up' ? '1' : '-1');
+				// Set vote
+				el.parent().data('vote', action == 'up' ? '1' : '-1');
+			},
+			error: function(r) {
+				console.log(r);
+			}
+		});
 	});
 }
 

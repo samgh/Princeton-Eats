@@ -34,10 +34,21 @@ class Entree(webapp2.RequestHandler):
     def get(self):
         entreeID = self.request.get('id')
         entreeID = int(float(entreeID))
-        entree = models.Entree.get_by_id(entreeID)
+        ip = self.request.remote_addr
+        entree = models.getEntreeById(entreeID, ip)
         params = { 'entree':entree }
         template = jinja.get_template('templates/pieces/entree.html')
         self.response.out.write(template.render(params))
+    def post(self):
+        # Get vars
+        entreeID = self.request.get('id')
+        entreeID = int(float(entreeID))
+        ip = self.request.remote_addr
+        vote = self.request.get('vote')
+        vote = int(float(vote))
+        
+        # Add vote
+        models.addEntreeVote(entreeID, ip, vote)
 
 class Hall(webapp2.RequestHandler):
     def get(self):
@@ -51,8 +62,8 @@ class Hall(webapp2.RequestHandler):
 
 class Home(webapp2.RequestHandler):
     def get(self):
-        #if (isMobile(self.request)):
-        if (True):
+        if (isMobile(self.request)):
+        #if (True):
             template = jinja.get_template('templates/homeMobile.html')
             self.response.out.write(template.render({})) 
             return
