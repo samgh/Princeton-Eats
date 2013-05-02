@@ -3,6 +3,7 @@ from datetime import datetime, date, time, timedelta
 from google.appengine.ext import db
 import tzsearch
 import logging
+import re
 
 # Identifiers for dining halls
 halls = {
@@ -126,6 +127,9 @@ def getMealsByDateHallType(date, hall, mtype):
 
 # Return entrees that match a search query
 def searchEntrees(q):
+    # Sanitize input
+    q = re.sub("[^\w']", '', q)
+
     d = date.today()
     dMin = d - timedelta(days=1)
     dMax = d + timedelta(days=5)
@@ -135,7 +139,8 @@ def searchEntrees(q):
     results = []
     for entree in query.run():
         if q.lower() in entree.name.lower():
-            results.append(entree)
+            if entree not in results:
+                results.append(entree)
     return results
 
 # Return all meals for a hall for a day
