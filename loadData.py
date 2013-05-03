@@ -20,10 +20,32 @@ def load(offset=0):
             # Loop through meals
             for meal in menu['meals']:
                 (m, e) = constructModels(hall, menu, meal)
+
                 # Put the meal just after deleting the old to reduce chance of inconsistent database
-                db.delete(models.getMealsByDateHallType(m.date, m.hall, m.type))
-                if m.entreeIDs != []:
+                oldmeal = models.getMealByDateHallType(m.date, m.hall, m.type)
+                # Don't bother adding if no meals.
+                diff = False
+                if oldmeal is not None:
+                    if m.entreeIDs == []:
+                        continue
+                    if len(oldmeal.entreeIDs) != len(m.entreeIDs):
+                        diff = True
+                    else:
+                        for i in range(len(oldmeal.entreeIDs)):
+                            if oldmeal.entreeIDs[i] != m.entreeIDs[i]:
+                                diff = True
+                                break
+                else:
+                    diff = True
+                # Don't bother adding if the same as a meal already in the database
+                if diff:
+                    print "Got unique meal"
+                    if oldmeal is not None:
+                        print "Deleting old meal."
+                        print "If you aren't debugging, this is probably bad. Tell Will."
+                        db.delete(oldmeal)
                     db.put(m)
+                # Return debug info even if not unique?
                 meals.append(m)
                 entrees = entrees + e
     
