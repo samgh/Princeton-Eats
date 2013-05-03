@@ -1,8 +1,8 @@
 {% for meal in meals %}
-	<h1 id="{{ meal.type }}-header" class="meal-header">{{ meal.type }}</h1>
-	<div id="{{ meal.type }}">
+	<h1 id="{{ meal }}-header" class="meal-header">{{ meal }}</h1>
+	<div id="{{ meal }}">
 		<ul>
-			{% for entree in meal.entrees %}
+			{% for entree in meals[meal] %}
 				<li>{{ entree.name }}</li>
 			{% endfor %}
 		</ul>
