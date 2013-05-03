@@ -117,13 +117,13 @@ def getEntreesByHashes(hashes):
         entrees.append(entree)
     return entrees
 
-def getMealsByDateHallType(date, hall, mtype):
+def getMealByDateHallType(date, hall, mtype):
     q = db.GqlQuery("SELECT * FROM Meal " +
         "WHERE hall = :1 " +
         "AND date = :2 " +
         "AND type = :3 ",
         hall, date, mtype)
-    return q.run()
+    return q.get()
 
 # Return entrees that match a search query
 def searchEntrees(q):
