@@ -1,5 +1,5 @@
 <tr>
-	<td><img src="/images/{{ entree.hall }}.png" /></td>
-	<td>{{ entree.formatted_date() }}<br />{{ entree.type }}</td>
-	<td>{{ entree.name }}</td>
+	<td class="dining-hall"><img src="/images/{{ entree.hall }}.png" /></td>
+	<td class="date">{{ entree.formatted_date() }}<br />{{ entree.type }}</td>
+	<td class="item {% for allergen in entree.allergens %} {{ allergen }}{% endfor %}">{{ entree.name }}</td>
 </tr>

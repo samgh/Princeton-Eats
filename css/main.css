@@ -118,14 +118,8 @@ header #search input {
 	font-size: 1em;
 }
 
-#advanced-search-container {
-	margin: 10px 0 0 10px;
-	width: 250px;
-	float: left;
-}
-
 #filters-button {
-	margin: 5px 0 0 10px;
+	margin: 22px 0 0 10px;
 }
 
 #filters {
@@ -195,8 +189,21 @@ header #search input {
 #meal-selector-container label {
 	background: #ccc;
 	padding: 5px 10px 4px;
-	border-top: gray solid 1px;
-	border-bottom: gray solid 1px;
+}
+
+#meal-selector-container label[for=breakfast] {
+	border: 1px solid gray;
+	border-radius: 3px 0 0 3px;
+}
+
+#meal-selector-container label[for=lunch] {
+	border-top: 1px solid gray;
+	border-bottom: 1px solid gray;
+}
+
+#meal-selector-container label[for=dinner] {
+	border: 1px solid gray;
+	border-radius: 0 3px 3px 0;
 }
 
 #meal-selector-container label:hover {
@@ -211,8 +218,6 @@ header #search input {
 	text-align: center;
 	vertical-align: middle;
 	height: 100%;
-	border-left: gray solid 1px;
-	border-right: gray solid 1px;
 	margin: 0 auto;
 }
 
@@ -221,6 +226,7 @@ header #search input {
 	text-align: center;
 	vertical-align: middle;
 }
+
 #menus-container {
 	height: auto;
 	width: 100%;
@@ -248,7 +254,7 @@ header #search input {
 }
 
 #menus-table li {
-	padding: 0.5em 0;
+	padding: 0.5em 5px;
 	cursor: pointer;
 }
 
@@ -286,4 +292,22 @@ header #search input {
 .ratings .rating .num {
 	text-align: center;
 	font-size: 12px;
+}
+
+/* search */
+
+#search-table {
+	width: 100%;
+}
+
+#search-table tr {
+	height: 60px;
+	margin: 1em 0;
+}
+#search-table img {
+	height: 60px;
+}
+
+#search-table .date {
+	vertical-align: middle;
 }

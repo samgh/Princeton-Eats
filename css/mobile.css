@@ -117,19 +117,25 @@ header {
 
 #filters {
 	background-color: #ff8511;
+	width: 100%;
 }
 
 #dining-hall-selector-container {
 	width: 100%;
 	float: left;
 	text-align: center;
-	background-color: gray;
-	padding: 5px 0;
+	background-image: -o-linear-gradient(bottom, #888, #AAA);
+	background-image: -moz-linear-gradient(bottom, #666, #AAA);
+	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.24, #666), color-stop(0.62, #AAA));
+	background-image: -webkit-linear-gradient(bottom, #666, #AAA);
+	background-image: -ms-linear-gradient(bottom, #666, #AAA);
+	background-image: linear-gradient(bottom, #666, #AAA);
 }
 
 .dining-hall-selector {
 	width: 25%;
 	float: left;
+	padding: 5px 0;
 }
 
 .dining-hall-selector img {
@@ -139,9 +145,28 @@ header {
 #hall {
 	float: left;
 	width: 100%;
+	position: relative;
+}
+
+#hall li {
+	margin: 5px 0;
+}
+
+#ajax-loader {
+	position: absolute;
+	top: 10px;
+	left: 45%;
+	display: none;
 }
 
 .meal-header {
-	background-color: gray;
+	background-image: -o-linear-gradient(bottom, #666, #AAA);
+	background-image: -moz-linear-gradient(bottom, #666, #AAA);
+	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.24, #666), color-stop(0.62, #AAA));
+	background-image: -webkit-linear-gradient(bottom, #777, #AAA);
+	background-image: -ms-linear-gradient(bottom, #666, #AAA);
+	background-image: linear-gradient(bottom, #666, #AAA);
 	padding: 5px;
+	color: white;
+	font-weight: bold;
 }
