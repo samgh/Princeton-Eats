@@ -98,6 +98,8 @@ function refreshMeals() {
 			if (selectedDay.getDay() == 0 || selectedDay.getDay() == 6) {
 				//$('#breakfast').hide();
 				$("#meal-selector-form label[for='lunch']").html("Brunch");
+				$("#meal-selector-form label[for='lunch']").css("border-left", "1px solid gray");
+				$("#meal-selector-form label[for='lunch']").css("border-radius", "3px 0 0 3px");
 				$("label[for='breakfast']").hide();
 				if ($('#meal-selector-form input:radio[name=meal]')[0].checked) {
 					$('#meal-selector-form input[id=lunch]').trigger('click');
@@ -107,6 +109,8 @@ function refreshMeals() {
 				//$('#breakfast').show();
 				$("label[for='breakfast']").show();
 				$("#meal-selector-form label[for='lunch']").html("Lunch");
+				$("#meal-selector-form label[for='lunch']").css("border-left", "");
+				$("#meal-selector-form label[for='lunch']").css("border-radius", "");
 			}
 			$('#ajax-loader').hide();
 			$('#menus-table #meal').css("opacity", "1")

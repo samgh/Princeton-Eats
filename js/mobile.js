@@ -14,14 +14,16 @@ function getHall() {
 		hall: hall,
 		day: day
 	}
-	$('#hall').css("opacity", "0.5");
+	$('#hall-menus').css("opacity", "0.5");
+	$("#ajax-loader").show();
 	$.ajax({
 		url: '/hall',
 		data: data,
 		success: function(r) {
 			$('#hall').html(r);
 			setAccordion();
-			$('#hall').css("opacity", "1")
+			$('#hall').css("opacity", "1");
+			$("#ajax-loader").hide();
 		},
 		error: function(r) {
 			console.log(r);
@@ -43,16 +45,27 @@ function setHallSelector() {
 		var container = $(this).attr('id')
 		if (container === 'butlerwilson-selector') {
 			hall = 'butlerwilson';
+			setHallBackgroundColor("butlerwilson-selector");
 		} else if (container === 'forbes-selector') {
 			hall = 'forbes';
+			setHallBackgroundColor("forbes-selector");
 		} else if (container === 'rockymathey-selector') {
 			hall = 'rockymathey';
+			setHallBackgroundColor("rockymathey-selector");
 		} else if (container === 'whitman-selector') {
 			hall = 'whitman';
+			setHallBackgroundColor("whitman-selector");
 		}
 		getHall();
 	});
 	$('#butlerwilson-selector').trigger('click');
+}
+
+function setHallBackgroundColor(selector) {
+	$(".dining-hall-selector").each(function() {
+		$(this).css("background-color", "");
+	});
+	$("#" + selector).css("background-color", "#666");
 }
 
 function setInitialDate() {
@@ -76,7 +89,7 @@ function setInitialDate() {
 	$.each(dates, function(key, value) {
 		$dateSelector.append($("<option></option>").attr("value", key).text(value));
 	});
-	$dateSelector.val(1);
+	//$dateSelector.val(1);
 	$dateSelector.change(function() {
 		$("#date-selector-container select option:selected").each(function() {
 			var dayVal = $(this).val();
@@ -98,7 +111,14 @@ function setInitialDate() {
 			getHall();
 		});
 	});
-	day = dateString(d1);
+	var d = new Date();
+	if (d.getHours() >= 20) {
+		day = dateString(d2);
+		$dateSelector.val(2);
+	} else {
+		day = dateString(d1);
+		$dateSelector.val(1);
+	}
 	setHallSelector();
 }
 
@@ -145,8 +165,18 @@ function setFilters() {
 };
 
 function setAccordion() {
+	console.log(day);
+	var d = $.datepicker.parseDate("m/dd/yy", day);
+	if (d.getDay() == 0 || d.getDay() == 6) {
+		$('#breakfast-header').hide();
+		$('#lunch-header').html('brunch');
+	} else {
+		$('#breakfast-header').show();
+		$('#lunch-header').html('lunch');
+	}
 	$('#breakfast').hide();
 	$('#dinner').hide();
+	// Event handling
 	$('#breakfast-header').click(function() {
 		$('#breakfast').show();
 		$('#lunch').hide();
