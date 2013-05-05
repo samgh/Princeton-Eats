@@ -114,7 +114,7 @@ class SearchableEntity(datastore.Entity):
 
 
       if not properties_to_index:
-        properties_to_index = self.keys()
+        properties_to_index = ["name"]
 
       index = set()
       for name in properties_to_index:
