@@ -166,7 +166,7 @@ header {
 	background-image: -webkit-linear-gradient(bottom, #777, #AAA);
 	background-image: -ms-linear-gradient(bottom, #666, #AAA);
 	background-image: linear-gradient(bottom, #666, #AAA);
-	padding: 5px;
+	padding: 10px 5px;
 	color: white;
 	font-weight: bold;
 }
