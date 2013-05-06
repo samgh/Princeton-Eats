@@ -21,6 +21,7 @@ import jinja2
 import os
 from datetime import datetime, date, time
 from detectmobile import isMobile
+from google.appengine.api import taskqueue
 
 import menuparser
 import loadData
@@ -70,6 +71,13 @@ class Home(webapp2.RequestHandler):
         template = jinja.get_template('templates/home.html')
         self.response.out.write(template.render({})) 
 
+class Load(webapp2.RequestHandler):
+    def get(self):
+        for i in range(0, 7):
+            url_to_do = "/load-data"
+            print i
+            taskqueue.add(url=url_to_do, params={'offset':i}, method = 'GET')
+
 class LoadData(webapp2.RequestHandler):
     def get(self):
         offset = self.request.get('offset')
@@ -115,6 +123,7 @@ app = webapp2.WSGIApplication([
     ('/entree', Entree),
     ('/hall', Hall),
     ('/load-data', LoadData),
+    ('/load', Load),
     ('/menus', Menus),
     ('/search', Search),
     ('/timeline', Timeline),

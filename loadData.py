@@ -20,11 +20,11 @@ def load(offset=0):
             # Loop through meals
             for meal in menu['meals']:
                 (m, e) = constructModels(hall, menu, meal)
-
-                # Put the meal just after deleting the old to reduce chance of inconsistent database
+                # Get any meal with the same date, place, and type.
                 oldmeal = models.getMealByDateHallType(m.date, m.hall, m.type)
                 # Don't bother adding if no meals.
                 diff = False
+                # If the meal doesn't exist, or is different than the old, update.
                 if oldmeal is not None:
                     if m.entreeIDs == []:
                         continue
@@ -42,7 +42,6 @@ def load(offset=0):
                     print "Got unique meal"
                     if oldmeal is not None:
                         print "Deleting old meal."
-                        print "If you aren't debugging, this is probably bad. Tell Will."
                         db.delete(oldmeal)
                     db.put(m)
                 # Return debug info even if not unique?
