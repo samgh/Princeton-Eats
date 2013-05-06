@@ -1,5 +1,21 @@
 <tr>
-	<td class="dining-hall"><img src="/images/{{ entree.hall }}.png" /></td>
-	<td class="date">{{ entree.formatted_date() }}<br />{{ entree.type }}</td>
-	<td class="item {% for allergen in entree.allergens %} {{ allergen }}{% endfor %}">{{ entree.name }}</td>
+	<td class="dining-hall"><img src="/images/{{ entree.hall }}mobile.png" /></td>
+	<td class="date">
+		<p class="search-day">
+			{{ entree.formatted_date() }}
+		</p>
+		<p class="search-meal">
+			{{ entree.type }}
+		</p>
+	</td>
+	<td class="item {% for allergen in entree.allergens %} {{ allergen }}{% endfor %}">
+		<p class="search-item">
+			{{ entree.name }}
+		</p>
+		<p class="search-allergens">
+			{% for allergen in entree.allergens %} 
+				{{ allergen }} 
+			{% endfor %}
+		</p>
+	</td>
 </tr>

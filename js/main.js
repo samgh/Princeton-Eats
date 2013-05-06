@@ -5,11 +5,16 @@ $(function() {
 	// Hide filters
 	$("#filters-form").hide();
 	
-	// Init
-	initMealSelection();
-	initDaySelection();
-	// Trigger a meal selection
-	$('#meal-selector-form input[id=' + meal + ']').trigger('click');
+	if (window.location.pathname == '/') {
+		// Init
+		initMealSelection();
+		initDaySelection();
+		// Trigger a meal selection
+		$('#meal-selector-form input[id=' + meal + ']').trigger('click');
+	}
+	else {
+		setFilters();
+	}
 });
 
 //Init meal selections
