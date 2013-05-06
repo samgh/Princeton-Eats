@@ -128,7 +128,7 @@ def getMealByDateHallType(date, hall, mtype):
 # Return entrees that match a search query
 def searchEntrees(q):
     # Sanitize input
-    q = re.sub("[^\w']", '', q)
+    q = re.sub("[^\w']", ' ', q)
 
     d = date.today()
     dMin = d - timedelta(days=1)
