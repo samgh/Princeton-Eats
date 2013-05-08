@@ -8,6 +8,7 @@
 			{{ entree.type }}
 		</p>
 	</td>
+	<td class="rating-cell">{% include 'templates/pieces/ratings.html' %}</td>
 	<td class="item {% for allergen in entree.allergens %} {{ allergen }}{% endfor %}">
 		<p class="search-item">
 			{{ entree.name }}

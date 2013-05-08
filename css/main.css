@@ -355,9 +355,21 @@ body {
 }
 
 #search-table .date {
-	width: 30%;
+	width: 25%;
 }
 
 #search-table .item {
-	width: 50%;
+	width: 35%;
+}
+
+#search-table .rating-cell {
+	width: 100px;
+}
+
+#search-table .ratings {
+	padding-top: 0px;
+}
+
+#search-table .rating-cell .num {
+	padding-top: 10px;
 }

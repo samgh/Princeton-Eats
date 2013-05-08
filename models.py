@@ -40,6 +40,13 @@ class Entree(tzsearch.SearchableModel):
             return 0
         return self.upvotes
 
+    def checkUserVote(self, ip):
+        self.vote = 0
+        if ip in self.upvoters:
+            self.vote = 1
+        elif ip in self.downvoters:
+            self.vote = -1
+
     def formatted_date(self):
         return self.date.strftime('%A, %B %d')
     def html_string(self):
@@ -66,12 +73,7 @@ class Meal(db.Model):
 # Return entree by id
 def getEntreeById(id, ip):
     entree = Entree.get_by_id(id)
-    # Check user vote
-    entree.vote = 0
-    if ip in entree.upvoters:
-        entree.vote = 1
-    elif ip in entree.downvoters:
-        entree.vote = -1
+    entree.checkUserVote(ip)
     return entree
 
 # Vote on entree by id
@@ -127,7 +129,7 @@ def getMealByDateHallType(date, hall, mtype):
     return q.get()
 
 # Return entrees that match a search query
-def searchEntrees(q):
+def searchEntrees(q, ip):
     # Sanitize input
     # Do nothing for null string
     if not q or re.search('\w', q) is None:
@@ -150,6 +152,7 @@ def searchEntrees(q):
                 if entree.type == mtype and entree.hall == dhall\
                 and q.lower() in entree.name.lower():
                     if entree not in results:
+                        entree.checkUserVote(ip)
                         results.append(entree)
     # Sort by date
     results.sort(key=lambda r: r.date)
