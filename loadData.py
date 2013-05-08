@@ -39,11 +39,7 @@ def load(offset=0):
                     diff = True
                 # Don't bother adding if the same as a meal already in the database
                 if diff:
-                    print "Got unique meal"
-                    if oldmeal is not None:
-                        print "Deleting old meal."
-                        db.delete(oldmeal)
-                    db.put(m)
+                   handleMealAddDelete(m, oldmeal)
                 # Return debug info even if not unique?
                 meals.append(m)
                 entrees = entrees + e
@@ -52,6 +48,14 @@ def load(offset=0):
     #db.put(meals)
     
     return (meals, entrees)
+
+@db.transactional(xg=True)
+def handleMealAddDelete(newmeal, oldmeal):
+    print "Got unique meal"
+    if oldmeal is not None:
+        print "Deleting old meal."
+        oldmeal.delete()
+    newmeal.put()
     
 def constructModels(hall, menu, meal):
     # Get date
