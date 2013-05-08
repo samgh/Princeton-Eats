@@ -1,5 +1,5 @@
 cron:
-- description: daily get menu 0
-  url: /load
+- description: Queue menu loads
+  url: /queue-load
   schedule: every 6 hours
   timezone: America/New_York

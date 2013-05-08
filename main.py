@@ -75,7 +75,6 @@ class Load(webapp2.RequestHandler):
     def get(self):
         for i in range(0, 7):
             url_to_do = "/load-data"
-            print i
             taskqueue.add(url=url_to_do, params={'offset':i}, method = 'GET')
 
 class LoadData(webapp2.RequestHandler):
@@ -123,7 +122,7 @@ app = webapp2.WSGIApplication([
     ('/entree', Entree),
     ('/hall', Hall),
     ('/load-data', LoadData),
-    ('/load', Load),
+    ('/queue-load', Load),
     ('/menus', Menus),
     ('/search', Search),
     ('/timeline', Timeline),

@@ -75,6 +75,7 @@ def getEntreeById(id, ip):
     return entree
 
 # Vote on entree by id
+@db.transactional
 def addEntreeVote(id, ip, vote):
     # Get entree
     entree = getEntreeById(id, ip)
