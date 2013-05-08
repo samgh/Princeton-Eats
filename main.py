@@ -103,6 +103,17 @@ class Menus(webapp2.RequestHandler):
         params['menus'] = models.getMeals(d, meal)
         self.response.out.write(template.render(params)) 
 
+class MobileSearch(webapp2.RequestHandler):
+    def get(self):
+        q = self.request.get('q')
+        ip = self.request.remote_addr
+        params = { 
+            'entrees':models.searchEntrees(q, ip),
+            'q':q 
+        }
+        template = jinja.get_template('templates/mobileSearch.html')
+        self.response.out.write(template.render(params))
+
 class Search(webapp2.RequestHandler):
     def get(self):
         q = self.request.get('q')
@@ -125,6 +136,7 @@ app = webapp2.WSGIApplication([
     ('/load-data', LoadData),
     ('/queue-load', Load),
     ('/menus', Menus),
+    ('/mobile-search', MobileSearch),
     ('/search', Search),
     ('/timeline', Timeline),
     ('/', Home)
