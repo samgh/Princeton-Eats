@@ -106,8 +106,9 @@ class Menus(webapp2.RequestHandler):
 class Search(webapp2.RequestHandler):
     def get(self):
         q = self.request.get('q')
+        ip = self.request.remote_addr
         params = { 
-            'entrees':models.searchEntrees(q),
+            'entrees':models.searchEntrees(q, ip),
             'q':q 
         }
         template = jinja.get_template('templates/search.html')

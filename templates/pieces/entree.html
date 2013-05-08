@@ -15,21 +15,4 @@ Allergens:
 		{{ allergen }}
 	{% endif %}
 {% endfor %}
-<div class="ratings" data-vote="{{ entree.vote }}" data-id="{{ entree.key().id() }}">
-	<div class="rating
-		{% if entree.vote == -1 %}}
-			selected
-		{% endif %}
-		" data-action="down">
-		<div class="face">&#9785;</div>
-		<div class="num">{{ entree.getDownvotes() }}</div>
-	</div>
-	<div class="rating
-		{% if entree.vote == 1 %}}
-			selected
-		{% endif %}
-		" data-action="up">
-		<div class="face">&#9786;</div>
-		<div class="num">{{ entree.getUpvotes() }}</div>
-	</div>
-</div>
+{% include 'templates/pieces/ratings.html' %}

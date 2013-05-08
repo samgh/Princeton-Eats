@@ -15,6 +15,9 @@ $(function() {
 	else {
 		setFilters();
 	}
+
+	// Set entree listeners
+	setEntreeListeners();
 });
 
 //Init meal selections
