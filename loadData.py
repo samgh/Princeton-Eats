@@ -39,18 +39,15 @@ def load(offset=0):
                     diff = True
                 # Don't bother adding if the same as a meal already in the database
                 if diff:
-                   handleMealAddDelete(m, oldmeal)
+                   handleMealAddAndDelete(m, oldmeal)
                 # Return debug info even if not unique?
                 meals.append(m)
                 entrees = entrees + e
     
-    # Put all meals and entrees in the database simultaneously for efficiency
-    #db.put(meals)
-    
     return (meals, entrees)
 
 @db.transactional(xg=True)
-def handleMealAddDelete(newmeal, oldmeal):
+def handleMealAddAndDelete(newmeal, oldmeal):
     print "Got unique meal"
     if oldmeal is not None:
         print "Deleting old meal."
