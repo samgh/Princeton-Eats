@@ -77,6 +77,9 @@ def constructModels(hall, menu, meal):
         e.type = meal['type']
         h = hashlib.md5()
         h.update(e.protoname)
+        h.update(str(e.date.month))
+        h.update(str(e.date.day))
+        h.update(e.type)
         for s in e.ingredients:
             h.update(s)
         for s in e.allergens:
