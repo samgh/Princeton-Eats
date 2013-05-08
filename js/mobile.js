@@ -7,6 +7,9 @@ $(function() {
 	setFilters();
 	setSearch();
 	setInitialDate();
+	if (window.location.pathname == '/mobile-search') {
+		$("#date-selector-container select").attr("disabled","disabled");
+	}
 });
 
 function getHall() {

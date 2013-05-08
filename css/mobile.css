@@ -112,7 +112,8 @@ header {
 
 #search input {
 	width: 80%;
-	margin: 0 5% 5px;
+	margin: 0 5% 10px;
+	font-size: 1em;
 }
 
 #filters {
@@ -173,4 +174,26 @@ header {
 
 #hall-menus li:nth-child(even) {
 	background: #ddd;
+}
+
+#search-results-table {
+	width: 100%;
+	float: left;
+}
+
+#search-results-table tr:nth-child(even) {
+	background: #ddd;
+}
+
+#search-results-table td {
+	vertical-align: middle;
+	padding: 5px 0;
+}
+
+#search-results-table .search-day {
+	padding: 0 5px 3px;
+}
+
+#search-results-table .search-meal {
+	padding: 2px 5px 0;
 }
