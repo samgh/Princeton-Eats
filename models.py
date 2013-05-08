@@ -128,6 +128,12 @@ def getMealByDateHallType(date, hall, mtype):
 # Return entrees that match a search query
 def searchEntrees(q):
     # Sanitize input
+    # Do nothing for null string
+    if not q:
+        return []
+
+    dhalls = ['butlerwilson', 'forbes', 'rockymathey', 'whitman']
+    mtypes = ["breakfast", "lunch", "dinner"]
     q = re.sub("[^\w']", ' ', q)
 
     d = date.today()
@@ -137,10 +143,13 @@ def searchEntrees(q):
     query =  query.filter('date >=', dMin)
     query = query.filter('date <=', dMax)
     results = []
-    for entree in query.run():
-        if q.lower() in entree.name.lower():
-            if entree not in results:
-                results.append(entree)
+    for mtype in mtypes:
+        for dhall in dhalls:
+            for entree in query.run():
+                if entree.type == mtype and entree.hall == dhall\
+                and q.lower() in entree.name.lower():
+                    if entree not in results:
+                        results.append(entree)
     return results
 
 # Return all meals for a hall for a day
