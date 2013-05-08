@@ -1,11 +1,19 @@
 Ingredients: 
 {% for ingredient in entree.ingredients %}
-	{{ ingredient }}
+	{% if loop.last != True %}
+		{{ ingredient }},
+	{% else %}
+		{{ ingredient }}
+	{% endif %}
 {% endfor %}
 <br /> <br />
 Allergens:
 {% for allergen in entree.allergens %}
-	{{ allergen }}
+	{% if loop.last != True %}
+		{{ allergen }},
+	{% else %}
+		{{ allergen }}
+	{% endif %}
 {% endfor %}
 <div class="ratings" data-vote="{{ entree.vote }}" data-id="{{ entree.key().id() }}">
 	<div class="rating
