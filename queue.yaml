@@ -1,5 +1,7 @@
+total_storage_limit: 10M
+
 queue:
 - name: default
-  bucket_size: 2
+  bucket_size: 1
   max_concurrent_requests: 1
   rate: 1/m
