@@ -130,7 +130,7 @@ def getMealByDateHallType(date, hall, mtype):
 def searchEntrees(q):
     # Sanitize input
     # Do nothing for null string
-    if not q:
+    if not q or re.search('\w', q) is None:
         return []
 
     dhalls = ['butlerwilson', 'forbes', 'rockymathey', 'whitman']
@@ -151,6 +151,8 @@ def searchEntrees(q):
                 and q.lower() in entree.name.lower():
                     if entree not in results:
                         results.append(entree)
+    # Sort by date
+    results.sort(key=lambda r: r.date)
     return results
 
 # Return all meals for a hall for a day
