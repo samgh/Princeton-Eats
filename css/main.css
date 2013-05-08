@@ -303,9 +303,16 @@ body {
 	height: 32px;
 	font-size: 36px;
 }
-
 .ratings .selected .face {
 	color: #ff8511;
+}
+
+.ratings .selected.up .face {
+	color: green;
+}
+
+.ratings .selected.down .face {
+	color: red;
 }
 
 .ratings .rating .num {

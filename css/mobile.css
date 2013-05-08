@@ -149,7 +149,7 @@ header {
 }
 
 #hall li {
-	margin: 5px 0;
+	padding: 5px 0;
 }
 
 #ajax-loader {
@@ -169,4 +169,8 @@ header {
 	padding: 10px 5px;
 	color: white;
 	font-weight: bold;
+}
+
+#hall-menus li:nth-child(even) {
+	background: #ddd;
 }
