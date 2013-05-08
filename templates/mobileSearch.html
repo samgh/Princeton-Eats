@@ -1,0 +1,6 @@
+{% extends 'templates/baseMobile.html' %}
+{% block content %}
+{% for entree in entrees %}
+	{% include 'templates/pieces/mobileSearchResult.html' %}
+{% endfor %}
+{% endblock %}
