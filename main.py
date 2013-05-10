@@ -95,7 +95,8 @@ class LoadData(webapp2.RequestHandler):
         
 class Delete(webapp2.RequestHandler):
     def get(self):
-        models.delOutdatedEntries()
+        # Uncomment when database is updated, this breaks things right now.
+        #models.delOutdatedEntries()
 
 class Menus(webapp2.RequestHandler):
     def get(self):
