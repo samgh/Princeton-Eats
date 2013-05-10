@@ -93,6 +93,10 @@ class LoadData(webapp2.RequestHandler):
         for e in entrees:
             self.response.out.write(e.html_string())
         
+class Delete(webapp2.RequestHandler):
+    def get(self):
+        models.delOutdatedEntries()
+
 class Menus(webapp2.RequestHandler):
     def get(self):
         template = jinja.get_template('templates/pieces/menus.html')
@@ -135,6 +139,7 @@ app = webapp2.WSGIApplication([
     ('/hall', Hall),
     ('/load-data', LoadData),
     ('/queue-load', Load),
+    ('/del-data', Delete),
     ('/menus', Menus),
     ('/mobile-search', MobileSearch),
     ('/search', Search),

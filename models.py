@@ -134,6 +134,17 @@ def getMealByDateHallType(date, hall, mtype):
         hall, date, mtype)
     return q.get()
 
+def delOutdatedEntries():
+    d = date.today()
+    dMin = d- timedelta(days=1) #days=1
+    query = Entree.all()
+    query = query.filter('date <', dMin)
+    db.delete(query.run())
+    query = Meal.all()
+    query.filter('date <', dMin)
+    db.delete(query.run())
+    print "Successful outdated removal"
+
 # Return entrees that match a search query
 def searchEntrees(q, ip):
     # Sanitize input
