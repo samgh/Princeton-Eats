@@ -4,11 +4,20 @@ var meal,
 $(function() {
 	// Hide filters
 	$("#filters-form").hide();
-	
 	if (window.location.pathname == '/') {
-		// Init
-		initMealSelection();
-		initDaySelection();
+		var tempDay = getQueryVariable("day");
+		var tempMeal = getQueryVariable("meal");
+		if (tempDay != -1 && tempMeal != -1 && validate(tempMeal, tempDay)) {
+			day = getQueryVariable("day");
+			meal = getQueryVariable("meal");
+			initMealSelection(true);
+			initDaySelection(true);
+		}
+		else {
+			// Init
+			initMealSelection(false);
+			initDaySelection(false);
+		}
 		// Trigger a meal selection
 		$('#meal-selector-form input[id=' + meal + ']').trigger('click');
 	}
@@ -20,28 +29,60 @@ $(function() {
 	setEntreeListeners();
 });
 
+function getQueryVariable(variable)
+{ 
+	var query = window.location.search.substring(1); 
+  	var vars = query.split("&"); 
+  	for (var i=0;i<vars.length;i++) { 
+	    var pair = vars[i].split("="); 
+    	if (pair[0] == variable) { 
+		    return pair[1]; 
+    	} 
+  	}
+  	return -1; //not found 
+}
+
+function validate(tempMeal, tempDay) {
+	return (validateMeal(tempMeal) && validateDay(tempDay));
+}
+
+function validateMeal(mealGet) {
+	return (mealGet == "breakfast" || mealGet == "lunch" || mealGet == "dinner");
+}
+
+function validateDay(dayGet) {
+	var d1 = new Date();
+	d1.setHours(0,0,0,0);
+	d1.setDate(d1.getDate() - 1);
+	var d2 = new Date(dayGet);
+	console.log(d2 - d1);
+	return ((d2 - d1) < 86400000 * 7);
+}
+
 //Init meal selections
-function initMealSelection() {
+function initMealSelection(hasMeal) {
 	$('#meal-selector-form input').on('click', function() {
 		meal = $(this).attr('id');
 		refreshMeals();
 	});
-	selectMeal();
+	selectMeal(hasMeal);
 }
 
 // Auto meal selection
-function selectMeal() {
-	var d = new Date();
-	if (d.getHours() < 14) {
-		meal = 'lunch';
-	} else if (d.getHours() < 20) {
-		meal = 'dinner';
-	} else {
-		meal = 'breakfast';
-	}
-	if (d.getUTCDay() != 0 && d.getUTCDay() != 7) {
-		if (d.getHours() < 11) {
+function selectMeal(hasMeal) {
+	if (hasMeal == false) {
+		var d = new Date();
+		if (d.getHours() < 14) {
+			meal = 'lunch';
+		} else if (d.getHours() < 20) {
+			meal = 'dinner';
+		} else {
 			meal = 'breakfast';
+		}
+		if (d.getUTCDay() != 0 && d.getUTCDay() != 7) {
+			if (d.getHours() < 11) {
+				meal = 'breakfast';
+			}
 		}
 	}
 	mealSelectors();
@@ -57,7 +98,7 @@ function mealSelectors() {
 }
 
 // Init day selection
-function initDaySelection() {
+function initDaySelection(hasDay) {
 	var datepicker = $("#datepicker");
 	datepicker.datepicker({
 		dateFormat: 'DD, MM d',
@@ -74,6 +115,10 @@ function initDaySelection() {
 		datepicker.datepicker('setDate', '+1');
 	}
 
+	if (hasDay) {
+		datepicker.datepicker('setDate', new Date(day));
+	}
+	console.log(datepicker.datepicker('getDate'));
 	setDay(datepicker.datepicker('getDate'));
 
 	// Set previous and next controls
@@ -95,6 +140,8 @@ function refreshMeals() {
 		meal: meal, 
 		day: day
 	};
+	console.log(meal);
+	console.log(day);
 	$("#ajax-loader").show();
 	$('#menus-table #meal').css("opacity", "0.5")
 	$.ajax({
@@ -138,6 +185,7 @@ function setDay(d) {
 	var month = d.getMonth() + 1;
 	var year = d.getFullYear();
 	day = month + '/' + date + '/' + year;
+	console.log(day);
 }
 
 // Set entree events

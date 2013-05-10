@@ -49,6 +49,8 @@ class Entree(tzsearch.SearchableModel):
 
     def formatted_date(self):
         return self.date.strftime('%A, %B %d')
+    def formatted_url_date(self):
+        return self.date.strftime('%-m/%d/%Y')
     def html_string(self):
         html = '<div>'
         html = html + '<p><b>%s</b></p>' % self.name

@@ -1,26 +1,36 @@
 <tr>
-	<td class="dining-hall"><img src="/images/{{ entree.hall }}mobile.png" /></td>
-	<td class="date">
-		<p class="search-day">
-			{{ entree.formatted_date() }}
-		</p>
-		<p class="search-meal">
-			{{ entree.type }}
-		</p>
+	<td class="dining-hall">
+		<a href="/?day={{ entree.formatted_url_date() }}&meal={{ entree.type }}">
+			<img src="/images/{{ entree.hall }}mobile.png" />
+		</a>
 	</td>
-	<td class="rating-cell">{% include 'templates/pieces/ratings.html' %}</td>
+	<td class="date">
+		<a href="/?day={{ entree.formatted_url_date() }}&meal={{ entree.type }}">
+			<p class="search-day">
+				{{ entree.formatted_date() }}
+			</p>
+			<p class="search-meal">
+				{{ entree.type }}
+			</p>
+		</a>
+	</td>
+	<td class="rating-cell">
+		{% include 'templates/pieces/ratings.html' %}
+	</td>
 	<td class="item {% for allergen in entree.allergens %} {{ allergen }}{% endfor %}">
-		<p class="search-item">
-			{{ entree.name }}
-		</p>
-		<p class="search-allergens">
-			{% for allergen in entree.allergens %} 
-				{% if loop.last != True %}
-					{{ allergen }},
-				{% else %}
-					{{ allergen }}
-				{% endif %}
-			{% endfor %}
-		</p>
+		<a href="/?day={{ entree.formatted_url_date() }}&meal={{ entree.type }}">
+			<p class="search-item">
+				{{ entree.name }}
+			</p>
+			<p class="search-allergens">
+				{% for allergen in entree.allergens %} 
+					{% if loop.last != True %}
+						{{ allergen }},
+					{% else %}
+						{{ allergen }}
+					{% endif %}
+				{% endfor %}
+			</p>
+		</a>
 	</td>
 </tr>

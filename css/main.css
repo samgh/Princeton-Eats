@@ -158,6 +158,10 @@ body {
 }
 
 /* home */
+a {
+	color: black;
+	text-decoration: none;
+}
 #content-container {
 	width: 960px;
 	margin: 0 auto;
