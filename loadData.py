@@ -52,7 +52,8 @@ def handleMealAddAndDelete(newmeal, oldmeal):
     if oldmeal is not None:
         print "Deleting old meal."
         oldmeal.delete()
-    newmeal.put()
+    if newmeal.entreeIDs != []:
+        newmeal.put()
     
 def constructModels(hall, menu, meal):
     # Get date

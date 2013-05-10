@@ -95,8 +95,13 @@ class LoadData(webapp2.RequestHandler):
         
 class Delete(webapp2.RequestHandler):
     def get(self):
+        taskqueue.add(url="/del-data", method = 'GET')
+
+class DeleteData(webapp2.RequestHandler):
+    def get(self):
         # Uncomment when database is updated, this breaks things right now.
         #models.delOutdatedEntries()
+        print "Deleted outdated data"
 
 class Menus(webapp2.RequestHandler):
     def get(self):
@@ -140,7 +145,8 @@ app = webapp2.WSGIApplication([
     ('/hall', Hall),
     ('/load-data', LoadData),
     ('/queue-load', Load),
-    ('/del-data', Delete),
+    ('/del-data', DeleteData),
+    ('/queue-del', Delete),
     ('/menus', Menus),
     ('/mobile-search', MobileSearch),
     ('/search', Search),

@@ -18,6 +18,14 @@ handlers:
   static_files: favicon.ico
   upload: favicon\.ico
 
+- url: /del-data
+  script: main.app
+  login: admin
+
+- url: /queue-del
+  script: main.app
+  login: admin
+
 - url: /queue-load
   script: main.app
   login: admin

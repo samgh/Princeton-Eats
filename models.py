@@ -143,7 +143,6 @@ def delOutdatedEntries():
     query = Meal.all()
     query.filter('date <', dMin)
     db.delete(query.run())
-    print "Successful outdated removal"
 
 # Return entrees that match a search query
 def searchEntrees(q, ip):

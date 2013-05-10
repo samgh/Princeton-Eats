@@ -3,3 +3,8 @@ cron:
   url: /queue-load
   schedule: every 6 hours
   timezone: America/New_York
+
+- description: Queue menu deletes
+  url: /queue-del
+  schedule: every 12 hours
+  timezone: America/New_York
