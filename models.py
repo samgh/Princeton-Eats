@@ -45,12 +45,11 @@ class Entree(tzsearch.SearchableModel):
 
     def checkUserVote(self, ip):
         r = Rating.get_or_insert(self.protoname)
-        r.vote = 0
+        self.vote = 0
         if ip in r.upvoters:
-            r.vote = 1
+            self.vote = 1
         elif ip in r.downvoters:
-            r.vote = -1
-        r.put()
+            self.vote = -1
 
     def formatted_date(self):
         return self.date.strftime('%A, %B %d')
