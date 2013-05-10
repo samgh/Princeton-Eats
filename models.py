@@ -13,6 +13,13 @@ halls = {
     'Whitman College':'whitman'
 }
 
+# Ratings for a given protoname.
+class Rating(db.Model):
+    upvotes = db.IntegerProperty()
+    upvoters = db.ListProperty(str)
+    downvotes = db.IntegerProperty()
+    downvoters = db.ListProperty(str)
+
 # Entree data type, keyed by name
 class Entree(tzsearch.SearchableModel):
     date = db.DateProperty() # What day is this entree being served
@@ -24,28 +31,26 @@ class Entree(tzsearch.SearchableModel):
     hall = db.StringProperty() # Dining hall
     type = db.StringProperty() # breakfast, lunch or dinner
 
-    # Ratings
-    upvotes = db.IntegerProperty()
-    upvoters = db.ListProperty(str)
-    downvotes = db.IntegerProperty()
-    downvoters = db.ListProperty(str)
-
     def getDownvotes(self):
-        if self.downvotes == None:
+        r = Rating.get_or_insert(self.protoname)
+        if r.downvotes == None:
             return 0
-        return self.downvotes
+        return r.downvotes
 
     def getUpvotes(self):
-        if self.upvotes == None:
+        r = Rating.get_or_insert(self.protoname)
+        if r.upvotes == None:
             return 0
-        return self.upvotes
+        return r.upvotes
 
     def checkUserVote(self, ip):
-        self.vote = 0
-        if ip in self.upvoters:
-            self.vote = 1
-        elif ip in self.downvoters:
-            self.vote = -1
+        r = Rating.get_or_insert(self.protoname)
+        r.vote = 0
+        if ip in r.upvoters:
+            r.vote = 1
+        elif ip in r.downvoters:
+            r.vote = -1
+        r.put()
 
     def formatted_date(self):
         return self.date.strftime('%A, %B %d')
@@ -79,30 +84,30 @@ def getEntreeById(id, ip):
     return entree
 
 # Vote on entree by id
-@db.transactional
 def addEntreeVote(id, ip, vote):
     # Get entree
     entree = getEntreeById(id, ip)
+    r = Rating.get_or_insert(entree.protoname)
     
     # Remove old votes
-    if ip in entree.upvoters:
-        entree.upvoters.remove(ip)
-    if ip in entree.downvoters:
-        entree.downvoters.remove(ip)
+    if ip in r.upvoters:
+        r.upvoters.remove(ip)
+    if ip in r.downvoters:
+        r.downvoters.remove(ip)
 
     # Apply new vote
     if vote == 1:
-        entree.upvoters.append(ip)
+        r.upvoters.append(ip)
     elif vote == -1:
-        entree.downvoters.append(ip)
+        r.downvoters.append(ip)
 
     # Update
-    del entree.vote
-    entree.upvoters.sort()
-    entree.downvoters.sort()
-    entree.upvotes = len(entree.upvoters)
-    entree.downvotes = len(entree.downvoters)
-    entree.put()
+    #del r.vote
+    r.upvoters.sort()
+    r.downvoters.sort()
+    r.upvotes = len(r.upvoters)
+    r.downvotes = len(r.downvoters)
+    r.put()
 
 # Return all meals and entrees
 def getMealsAndEntrees():
