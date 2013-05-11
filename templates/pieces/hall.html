@@ -1,16 +1,20 @@
 <div id="hall-menus">
-	{% for meal in meals %}
-		<h1 id="{{ meal.type }}-header" class="meal-header">{{ meal.type }}</h1>
-		<div id="{{ meal.type }}">
-			<ul>
-				{% for entree in meal.entrees %}
-					<li class="item {% for allergen in entree.allergens %} {{ allergen }}{% endfor %}" data-entreeid="{{ entree.key().id() }}">
-						{{ entree.name }}
-					</li>
-				{% endfor %}
-			</ul>
-			<br />
-		</div>
-	{% endfor %}
+	{% if meals|length == 0 %}
+		<h2>No Data Available</h2>
+	{% else %}
+		{% for meal in meals %}
+			<h1 id="{{ meal.type }}-header" class="meal-header">{{ meal.type }}</h1>
+			<div id="{{ meal.type }}">
+				<ul>
+					{% for entree in meal.entrees %}
+						<li class="item {% for allergen in entree.allergens %} {{ allergen }}{% endfor %}" data-entreeid="{{ entree.key().id() }}">
+							{{ entree.name }}
+						</li>
+					{% endfor %}
+				</ul>
+				<br />
+			</div>
+		{% endfor %}
+	{% endif %}
 </div>
 <img id="ajax-loader" src="/images/ajax-loader.gif" />
