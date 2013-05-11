@@ -22,6 +22,7 @@ import os
 from datetime import datetime, date, time
 from detectmobile import isMobile
 from google.appengine.api import taskqueue
+from google.appengine.api import memcache
 
 import menuparser
 import loadData

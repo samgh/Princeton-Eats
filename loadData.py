@@ -109,7 +109,8 @@ def constructModels(hall, menu, meal):
             #print "Adding", entree.name
             eKeys.append(db.put(entree))
             # Speed up user clicking on an entree, add it to the cache because why not?
-            memcache.set(entree.protoname, models.Rating.get_or_insert(entree.protoname))
+            if memcache.get(entree.protoname) == None:
+                memcache.set(entree.protoname, models.Rating.get_or_insert(entree.protoname))
 
     entrees = nentrees
     # Add the entrees and get their IDs

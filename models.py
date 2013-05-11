@@ -163,26 +163,34 @@ def searchEntrees(q, ip):
     # Do nothing for null string
     if not q or re.search('\w', q) is None:
         return []
-
     dhalls = ['butlerwilson', 'forbes', 'rockymathey', 'whitman']
     mtypes = ["breakfast", "lunch", "dinner"]
     q = re.sub("[^\w']", ' ', q)
 
-    d = date.today()
-    dMin = d - timedelta(days=1)
-    dMax = d + timedelta(days=5)
-    query = Entree.all().search(q)
-    query =  query.filter('date >=', dMin)
-    query = query.filter('date <=', dMax)
-    results = []
-    for mtype in mtypes:
-        for dhall in dhalls:
-            for entree in query.run():
-                if entree.type == mtype and entree.hall == dhall\
-                and q.lower() in entree.name.lower():
-                    if entree not in results:
-                        entree.checkUserVote(ip)
-                        results.append(entree)
+    sKey = "search_query" + q
+    results = memcache.get(sKey)
+    if results == None:
+        print "Seach cache miss"
+        d = date.today()
+        dMin = d - timedelta(days=1)
+        dMax = d + timedelta(days=5)
+        query = Entree.all().search(q)
+        query =  query.filter('date >=', dMin)
+        query = query.filter('date <=', dMax)
+        results = []
+        for mtype in mtypes:
+            for dhall in dhalls:
+                for entree in query.run():
+                    if entree.type == mtype and entree.hall == dhall\
+                    and q.lower() in entree.name.lower():
+                        if entree not in results:
+                            results.append(entree)
+        memcache.set(sKey, results, 3600)
+    else:
+        print "Seach cache hit"
+
+    for entree in results:
+        entree.checkUserVote(ip)
     # Sort by date
     results.sort(key=lambda r: r.date)
     return results
@@ -218,7 +226,7 @@ def getHallMeals(d, hall):
             'type':'dinner',
             'entrees':meals['dinner']
         })
-        
+
     return hallMeals
 
 # Return menus for home page
@@ -228,10 +236,10 @@ def getMeals(d, type):
     cKey = str(d)+str(type)
     menuArray = memcache.get(cKey)
     if menuArray != None:
-        print "cache hit"
+        print "Menu cache hit"
         return menuArray
 
-    print "cache miss"
+    print "Menu cache miss"
     menus = {}
     menulist = []
     q = db.GqlQuery("SELECT * FROM Meal " + 
@@ -240,7 +248,6 @@ def getMeals(d, type):
                     "ORDER BY hall ASC",
                     type, d)
     for meal in q.run():
-        print "got meal"
         menulist.append(meal)
 
     for meal in menulist:
