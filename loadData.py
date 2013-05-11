@@ -3,6 +3,7 @@ import logging
 import pprint
 import hashlib
 from google.appengine.ext import db
+from google.appengine.api import memcache
 
 import models
 import menuparser
@@ -80,9 +81,9 @@ def constructModels(hall, menu, meal):
         h = hashlib.md5()
         h.update(e.protoname)
         # Uncomment when ready to fuck shit up. (Makes the search better)
-        #h.update(str(e.date.month))
-        #h.update(str(e.date.day))
-        #h.update(e.type)
+        h.update(str(e.date.month))
+        h.update(str(e.date.day))
+        h.update(e.type)
         for s in e.ingredients:
             h.update(s)
         for s in e.allergens:
@@ -107,6 +108,8 @@ def constructModels(hall, menu, meal):
         if not found:
             #print "Adding", entree.name
             eKeys.append(db.put(entree))
+            # Speed up user clicking on an entree, add it to the cache because why not?
+            memcache.set(entree.protoname, models.Rating.get_or_insert(entree.protoname))
 
     entrees = nentrees
     # Add the entrees and get their IDs

@@ -1,5 +1,5 @@
 from datetime import datetime, date, time, timedelta
-
+from google.appengine.api import memcache
 from google.appengine.ext import db
 import tzsearch
 import logging
@@ -32,19 +32,28 @@ class Entree(tzsearch.SearchableModel):
     type = db.StringProperty() # breakfast, lunch or dinner
 
     def getDownvotes(self):
-        r = Rating.get_or_insert(self.protoname)
+        r = memcache.get(self.protoname)
+        if r == None:
+            r = Rating.get_or_insert(self.protoname)
+            memcache.set(self.protoname, r)
         if r.downvotes == None:
             return 0
         return r.downvotes
 
     def getUpvotes(self):
-        r = Rating.get_or_insert(self.protoname)
+        r = memcache.get(self.protoname)
+        if r == None:
+            r = Rating.get_or_insert(self.protoname)
+            memcache.set(self.protoname, r)
         if r.upvotes == None:
             return 0
         return r.upvotes
 
     def checkUserVote(self, ip):
-        r = Rating.get_or_insert(self.protoname)
+        r = memcache.get(self.protoname)
+        if r == None:
+            r = Rating.get_or_insert(self.protoname)
+            memcache.set(self.protoname, r)
         self.vote = 0
         if ip in r.upvoters:
             self.vote = 1
@@ -86,7 +95,9 @@ def getEntreeById(id, ip):
 def addEntreeVote(id, ip, vote):
     # Get entree
     entree = getEntreeById(id, ip)
-    r = Rating.get_or_insert(entree.protoname)
+    r = memcache.get(entree.protoname)
+    if r == None:
+        r = Rating.get_or_insert(self.protoname)
     
     # Remove old votes
     if ip in r.upvoters:
@@ -107,6 +118,8 @@ def addEntreeVote(id, ip, vote):
     r.upvotes = len(r.upvoters)
     r.downvotes = len(r.downvoters)
     r.put()
+    # This overwrites the old version, so the new votes are in the cache.
+    memcache.set(entree.protoname, r)
 
 # Return all meals and entrees
 def getMealsAndEntrees():
@@ -205,23 +218,36 @@ def getHallMeals(d, hall):
             'type':'dinner',
             'entrees':meals['dinner']
         })
-
+        
     return hallMeals
 
 # Return menus for home page
 def getMeals(d, type):
-    menus = {}
     if type not in ['breakfast', 'lunch', 'dinner']:
         return []
+    cKey = str(d)+str(type)
+    menuArray = memcache.get(cKey)
+    if menuArray != None:
+        print "cache hit"
+        return menuArray
+
+    print "cache miss"
+    menus = {}
+    menulist = []
     q = db.GqlQuery("SELECT * FROM Meal " + 
                     "WHERE type = :1 " + 
                     "AND date = :2 " +
                     "ORDER BY hall ASC",
                     type, d)
     for meal in q.run():
+        print "got meal"
+        menulist.append(meal)
+
+    for meal in menulist:
         if meal.hall in menus:
             continue
         menus[meal.hall] = Entree.get_by_id(meal.entreeIDs)
+
 
     # Attempt to add data to an array of menus
     menuArray = []
@@ -235,5 +261,7 @@ def getMeals(d, type):
     except Exception, e:
         menuArray = [
             [], [], [], []
-        ]  
+        ]
+    # This cache entry is valid for 3 hours.
+    memcache.set(cKey, menuArray, 3*3600)  
     return menuArray
