@@ -1,7 +1,11 @@
 {% extends 'templates/base.html' %}
 {% block content %}
 <div id="content-container">
-	<h2>Search Results for "{{ q }}"</h2>
+	{% if entrees|length == 0 %}
+		<h2>No Results Matching "{{ q }}"</h2>
+	{% else %}
+		<h2>Search Results for "{{ q }}"</h2>			
+	{% endif %}
 	<div id="search-results-container">
 		<table id="search-table">
 			{% for entree in entrees %}
