@@ -17,6 +17,9 @@
 		{% for entrees in menus %}
 			<td id="menu-items">
 				<ul>
+					{% if entrees|length == 0 %}
+						<h2>No Data Available</h2>
+					{% endif %}
 					{% for entree in entrees %}
 						<li class="item {% for allergen in entree.allergens %} {{ allergen }}{% endfor %}" data-entreeid="{{ entree.key().id() }}">
 							{{ entree.name }}

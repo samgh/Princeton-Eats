@@ -1,6 +1,9 @@
 {% extends 'templates/baseMobile.html' %}
 {% block content %}
 <table id="search-results-table">
+	{% if entrees|length == 0 %}
+		<h2>No Results Matching "{{ q }}"</h2>
+	{% endif %}
 	{% for entree in entrees %}
 		{% include 'templates/pieces/mobileSearchResult.html' %}
 	{% endfor %}

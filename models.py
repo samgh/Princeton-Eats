@@ -222,7 +222,18 @@ def getMeals(d, type):
         if meal.hall in menus:
             continue
         menus[meal.hall] = Entree.get_by_id(meal.entreeIDs)
-    return [menus['butlerwilson'], 
+
+    # Attempt to add data to an array of menus
+    menuArray = []
+    try:
+        menuArray = [
+            menus['butlerwilson'], 
             menus['forbes'],
             menus['rockymathey'], 
-            menus['whitman']]
+            menus['whitman']
+        ]
+    except Exception, e:
+        menuArray = [
+            [], [], [], []
+        ]  
+    return menuArray
