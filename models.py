@@ -156,6 +156,7 @@ def delOutdatedEntries():
     query = Meal.all()
     query.filter('date <', dMin)
     db.delete(query.run())
+    memcache.flush_all()
 
 # Return entrees that match a search query
 def searchEntrees(q, ip):
@@ -170,7 +171,6 @@ def searchEntrees(q, ip):
     sKey = "search_query" + q
     results = memcache.get(sKey)
     if results == None:
-        print "Seach cache miss"
         d = date.today()
         dMin = d - timedelta(days=1)
         dMax = d + timedelta(days=5)
@@ -185,9 +185,7 @@ def searchEntrees(q, ip):
                     and q.lower() in entree.name.lower():
                         if entree not in results:
                             results.append(entree)
-        memcache.set(sKey, results, 3600)
-    else:
-        print "Seach cache hit"
+        memcache.set(sKey, results)
 
     for entree in results:
         entree.checkUserVote(ip)
@@ -236,10 +234,8 @@ def getMeals(d, type):
     cKey = str(d)+str(type)
     menuArray = memcache.get(cKey)
     if menuArray != None:
-        print "Menu cache hit"
         return menuArray
 
-    print "Menu cache miss"
     menus = {}
     menulist = []
     q = db.GqlQuery("SELECT * FROM Meal " + 
@@ -270,5 +266,5 @@ def getMeals(d, type):
             [], [], [], []
         ]
     # This cache entry is valid for 3 hours.
-    memcache.set(cKey, menuArray, 3*3600)  
+    memcache.set(cKey, menuArray)  
     return menuArray

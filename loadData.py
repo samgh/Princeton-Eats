@@ -41,10 +41,10 @@ def load(offset=0):
                 # Don't bother adding if the same as a meal already in the database
                 if diff:
                    handleMealAddAndDelete(m, oldmeal)
+                   memcache.flush_all()
                 # Return debug info even if not unique?
                 meals.append(m)
                 entrees = entrees + e
-    
     return (meals, entrees)
 
 @db.transactional(xg=True)
@@ -108,9 +108,8 @@ def constructModels(hall, menu, meal):
         if not found:
             #print "Adding", entree.name
             eKeys.append(db.put(entree))
-            # Speed up user clicking on an entree, add it to the cache because why not?
-            if memcache.get(entree.protoname) == None:
-                memcache.set(entree.protoname, models.Rating.get_or_insert(entree.protoname))
+            # Speed up user clicking on an entree by asserting ratings exist.
+            models.Rating.get_or_insert(entree.protoname)
 
     entrees = nentrees
     # Add the entrees and get their IDs

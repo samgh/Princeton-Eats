@@ -6,5 +6,5 @@ cron:
 
 - description: Queue menu deletes
   url: /queue-del
-  schedule: every 12 hours
+  schedule: every 24 hours
   timezone: America/New_York
