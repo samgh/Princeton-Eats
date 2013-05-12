@@ -55,7 +55,6 @@ function validateDay(dayGet) {
 	d1.setHours(0,0,0,0);
 	d1.setDate(d1.getDate() - 1);
 	var d2 = new Date(dayGet);
-	console.log(d2 - d1);
 	return ((d2 - d1) < 86400000 * 7);
 }
 
@@ -116,7 +115,6 @@ function initDaySelection(hasDay) {
 	if (hasDay) {
 		datepicker.datepicker('setDate', new Date(day));
 	}
-	console.log(datepicker.datepicker('getDate'));
 	setDay(datepicker.datepicker('getDate'));
 
 	// Set previous and next controls
@@ -138,7 +136,6 @@ function refreshMeals() {
 		meal: meal, 
 		day: day
 	};
-	console.log(meal);
 	$("#ajax-loader").show();
 	$('#menus-table #meal').css("opacity", "0.5");
 	var selectedDay = new Date(day);
@@ -180,7 +177,6 @@ function setDay(d) {
 	var month = d.getMonth() + 1;
 	var year = d.getFullYear();
 	day = month + '/' + date + '/' + year;
-	console.log(day);
 }
 
 // Set entree events
