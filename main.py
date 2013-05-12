@@ -133,6 +133,9 @@ class Search(webapp2.RequestHandler):
             'entrees':models.searchEntrees(q, ip),
             'q':q 
         }
+        for entree in params['entrees']:
+            self.response.out.write(entree.__dict__)
+        #self.response.out.write(params)
         template = jinja.get_template('templates/search.html')
         self.response.out.write(template.render(params))
 
