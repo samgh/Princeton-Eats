@@ -159,7 +159,7 @@ function refreshMeals() {
 		url: '/menus',
 		data: data,
 		success: function(r) {
-			$('#menus-container').html(r);
+			$('#meal').html(r);
 			$('#ajax-loader').hide();
 			$('#menus-table #meal').css("opacity", "1")
 			setMenuListeners();

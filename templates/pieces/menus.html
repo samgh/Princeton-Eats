@@ -1,33 +1,15 @@
-<table id="menus-table">
-	<tr id="logos">
-		<td id="butlerwilson-logo-container">
-			<img src="/images/butlerwilson.png" />
-		</td>
-		<td id="forbes-logo-container">
-			<img src="/images/forbes.png" />
-		</td>
-		<td id="rockymathey-logo-container">
-			<img src="/images/rockymathey.png" />
-		</td>
-		<td id="whitman-logo-container">
-			<img src="/images/whitman.png" />
-		</td>
-	</tr>
-	<tr id="meal">
-		{% for entrees in menus %}
-			<td id="menu-items">
-				<ul>
-					{% if entrees|length == 0 %}
-						<h2>No Data Available</h2>
-					{% endif %}
-					{% for entree in entrees %}
-						<li class="item {% for allergen in entree.allergens %} {{ allergen }}{% endfor %}" data-entreeid="{{ entree.key().id() }}">
-							{{ entree.name }}
-						</li>
-					{% endfor %}
-				</ul>
-			</td>
-		{% endfor %}
-	</tr>
-</table>
-<img id="ajax-loader" src="/images/ajax-loader.gif" />
+{% for entrees in menus %}
+	<td id="menu-items">
+		<ul>
+			{% if entrees|length == 0 %}
+				<h2>No Data Available</h2>
+			{% endif %}
+			{% for entree in entrees %}
+				<li class="item {% for allergen in entree.allergens %} {{ allergen }}{% endfor %}" data-entreeid="{{ entree.key().id() }}">
+					{{ entree.name }}
+				</li>
+			{% endfor %}
+		</ul>
+	</td>
+{% endfor %}
+
