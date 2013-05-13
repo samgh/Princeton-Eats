@@ -1,6 +1,8 @@
 <tr>
 	<td class="dining-hall">
-		<img src="/images/{{ entree.hall }}mobile.png" />
+		<a href="/?day={{ entree.formatted_url_date() }}&meal={{ entree.type }}">
+			<img src="/images/{{ entree.hall }}mobile.png" />
+		</a>
 	</td>
 	<td class="date">
 		<a href="/?day={{ entree.formatted_url_date() }}&meal={{ entree.type }}">
