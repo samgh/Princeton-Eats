@@ -80,7 +80,6 @@ def constructModels(hall, menu, meal):
         e.type = meal['type']
         h = hashlib.md5()
         h.update(e.protoname)
-        # Uncomment when ready to fuck shit up. (Makes the search better)
         h.update(str(e.date.month))
         h.update(str(e.date.day))
         h.update(e.type)
