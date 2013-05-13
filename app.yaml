@@ -18,6 +18,10 @@ handlers:
   static_files: favicon.ico
   upload: favicon\.ico
 
+- url: /load-data
+  script: main.app
+  login: admin
+
 - url: /del-data
   script: main.app
   login: admin
