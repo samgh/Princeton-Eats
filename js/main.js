@@ -23,6 +23,7 @@ $(function() {
 	}
 	else {
 		setFilters();
+		setMenuListeners();
 	}
 
 	// Set entree listeners
@@ -280,6 +281,7 @@ function setFilters() {
 		var $this = $(this);
 		if ($this.is(':checked')) {
 			$("." + $(this).attr('value')).css("color", "red");
+			console.log($(this).attr('value'));
 		}
 		else {
 			$("." + $(this).attr('value')).css("color", "black");

@@ -384,3 +384,15 @@ a {
 #search-table .rating-cell .num {
 	padding-top: 10px;
 }
+
+#search-table .item {
+	cursor: pointer;
+}
+
+/* 404 error page */
+#error-content {
+	width: 960px;
+	margin: 0 auto;
+	text-align: center;
+	margin-top: 20px;
+}
