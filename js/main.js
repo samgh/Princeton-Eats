@@ -125,7 +125,7 @@ function initDaySelection(hasDay) {
 		var date = datepicker.datepicker('getDate');
 		date = new Date(date.getTime() + op * 24 * 60 * 60 * 1000);
 		datepicker.datepicker('setDate', date);
-		setDay(date);
+		setDay(datepicker.datepicker('getDate'));
 		refreshMeals();
 		return false;
 	});
