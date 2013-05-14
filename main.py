@@ -163,7 +163,6 @@ app = webapp2.WSGIApplication([
     ('/mobile-search', MobileSearch),
     ('/search', Search),
     ('/timeline', Timeline),
-    ('/tutorial', Tutorial),
     ('/', Home)
 ], debug=True)
 

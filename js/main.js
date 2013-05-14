@@ -7,10 +7,6 @@ $(function() {
 	if (window.location.pathname == '/about') {
 		$("#filters-button").attr("disabled","disabled");
 	}
-	else if (window.location.pathname == '/tutorial') {
-		Galleria.loadTheme('/js/galleria/themes/classic/galleria.classic.min.js');
-		Galleria.run('.galleria');
-	}
 	else if (window.location.pathname == '/') {
 		var tempDay = getQueryVariable("day");
 		var tempMeal = getQueryVariable("meal");

@@ -412,9 +412,38 @@ a {
 	margin: 0 auto;
 }
 
+#about-container #banner {
+	width: 940px;
+	margin: 10px;
+}
 #about-container h1 {
 	margin: 1em 0 0.5em;
 	font-size: 2em;
+}
+
+#about-container .splash-content {
+	width: 100%;
+	float: left;
+	vertical-align: middle;
+	padding: 40px 0;
+}
+
+#about-container .splash-content .image-container {
+	width: 480px;
+	float: left;
+}
+
+#about-container .splash-content img {
+	max-width: 460px;
+	margin: 10px;
+	border-radius: 5px;
+}
+
+#about-container .splash-content h2 {
+	width: 460px;
+	float: left;
+	font-size: 2em;
+	margin: 0 10px;
 }
 
 #about-container .person-container {
@@ -454,35 +483,4 @@ a {
 
 #about-container .info-container li {
 	margin: 5px 0;
-}
-
-/* tutorial page */
-#tutorial-container {
-	width: 960px;
-	margin: 0 auto;
-}
-
-#tutorial-container	#navigation-container {
-	width: 20%;
-	float: left;
-	position: fixed;
-}
-
-#tutorial-container #navigation-container .submenu {
-	margin-left: 10px;
-}
-
-#tutorial-container #content-container {
-	width: 80%;
-	float: right;
-}
-
-#tutorial-container .content-block {
-	margin: 20px 0;
-}
-
-#tutorial-container .galleria {
-	width: 650px; 
-	height: 500px; 
-	background: #aaa;
 }
