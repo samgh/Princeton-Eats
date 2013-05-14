@@ -1,4 +1,87 @@
 {% extends 'templates/base.html' %}
 {% block content %}
-Tutorial Page
+<div id="tutorial-container">
+	<div id="navigation-container">
+		<ul>
+			<li><a href="#overview">Overview</a></li>
+			<li><a href="#layout">Page Layout</a></li>
+			<li><a href="#meal">Changing Meal</a></li>
+			<li><a href="#date">Changing Date</a></li>
+			<li><a href="#filters">Filters</a></li>
+			<li><a href="#meals">Meals</a>
+				<ul class="submenu">
+					<li><a href="#meals-info">Additional information</a></li>
+					<li><a href="#meals-ratings">Ratings</a></li>
+				</ul>
+			</li>
+			<li><a href="#search">Search</a>
+				<ul class="submenu">
+					<li><a href="#search-navigation">Navigation</a></li>
+					<li><a href="#search-ratings">Ratings</a></li>
+					<li><a href="#search-info">Entree information</a></li>
+					<li><a href="#search-filters">Filters</a></li>
+				</ul>
+			</li>
+			<li><a href="#mobile">Mobile</a></li>
+				<ul class="submenu">
+					<li><a href="#mobile-layout">Page Layout</a></li>
+					<li><a href="#mobile-meal">Changing Meal</a></li>
+					<li><a href="#mobile-date">Changing Date</a></li>
+					<li><a href="#mobile-filters">Filters</a></li>
+					<li><a href="#mobile-search">Search</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<div id="content-container">
+		<div class="content-block" id="overview">
+			<h1>Overview</h1>
+			<p>This is an overview of our project</p>
+		</div>
+		<div class="content-block" id="layout">
+			<h1>Layout</h1>
+			<img src="/images/tutorial/tutorial1.png">
+		</div>
+		<div class="content-block" id="meal">
+			<h1>Changing Meal</h1>
+			<div class="galleria">
+				<img src="/images/tutorial/tutorial2.png" data-title="Select the meal by clicking the appropriate button.">
+				<img src="/images/tutorial/tutorial3.png">
+				<img src="/images/tutorial/tutorial4.png" data-title="On weekends the meal options differ.">
+			</div>
+		</div>
+		<div class="content-block" id="date">
+		</div>
+		<div class="content-block" id="filters">
+		</div>
+		<div class="content-block" id="meals">
+		</div>
+		<div class="content-block" id="meals-info">
+		</div>
+		<div class="content-block" id="meals-ratings">
+		</div>
+		<div class="content-block" id="search">
+		</div>
+		<div class="content-block" id="search-navigation">
+		</div>
+		<div class="content-block" id="search-ratings">
+		</div>
+		<div class="content-block" id="search-info">
+		</div>
+		<div class="content-block" id="search-filters">
+		</div>
+		<div class="content-block" id="mobile">
+		</div>
+		<div class="content-block" id="mobile-layout">
+		</div>
+		<div class="content-block" id="mobile-meal">
+		</div>
+		<div class="content-block" id="mobile-date">
+		</div>
+		<div class="content-block" id="mobile-filters">
+		</div>
+		<div class="content-block" id="mobile-search">
+		</div>
+	</div>
+</div>
 {% endblock %}

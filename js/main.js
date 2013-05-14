@@ -4,7 +4,14 @@ var meal,
 $(function() {
 	// Hide filters
 	$("#filters-form").hide();
-	if (window.location.pathname == '/') {
+	if (window.location.pathname == '/about') {
+		$("#filters-button").attr("disabled","disabled");
+	}
+	else if (window.location.pathname == '/tutorial') {
+		Galleria.loadTheme('/js/galleria/themes/classic/galleria.classic.min.js');
+		Galleria.run('.galleria');
+	}
+	else if (window.location.pathname == '/') {
 		var tempDay = getQueryVariable("day");
 		var tempMeal = getQueryVariable("meal");
 		if (tempDay != -1 && tempMeal != -1 && validate(tempMeal, tempDay)) {
@@ -103,7 +110,6 @@ function initDaySelection(hasDay) {
 		minDate: "-1d", 
 		maxDate: "+5d",
 		onSelect: function() {
-			console.log('ondayselect');
 			setDay(datepicker.datepicker('getDate'));
 			refreshMeals();
 		}
@@ -282,7 +288,6 @@ function setFilters() {
 		var $this = $(this);
 		if ($this.is(':checked')) {
 			$("." + $(this).attr('value')).css("color", "red");
-			console.log($(this).attr('value'));
 		}
 		else {
 			$("." + $(this).attr('value')).css("color", "black");
