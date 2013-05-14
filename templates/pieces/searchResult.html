@@ -17,20 +17,20 @@
 	<td class="rating-cell">
 		{% include 'templates/pieces/ratings.html' %}
 	</td>
-	<td class="item {% for allergen in entree.allergens %} {{ allergen }}{% endfor %}">
-		<a href="/?day={{ entree.formatted_url_date() }}&meal={{ entree.type }}">
-			<p class="search-item">
-				{{ entree.name }}
-			</p>
-			<p class="search-allergens">
-				{% for allergen in entree.allergens %} 
-					{% if loop.last != True %}
-						{{ allergen }},
-					{% else %}
-						{{ allergen }}
-					{% endif %}
-				{% endfor %}
-			</p>
-		</a>
+	<td class="item {% for allergen in entree.allergens %} {{ allergen }}{% endfor %}" data-entreeid="{{ entree.key().id() }}">
+		<p class="search-item">
+			{{ entree.name }}
+		</p>
+		<p class="search-allergens">
+			{% for allergen in entree.allergens %} 
+				{% if loop.first %}
+					Allergens: {{ allergen}},
+				{% elif loop.last != True %}
+					{{ allergen }},
+				{% else %}
+					{{ allergen }}
+				{% endif %}
+			{% endfor %}
+		</p>
 	</td>
 </tr>

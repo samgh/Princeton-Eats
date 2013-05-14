@@ -106,7 +106,7 @@ class Delete(webapp2.RequestHandler):
 class DeleteData(webapp2.RequestHandler):
     def get(self):
         # Uncomment when database is updated, this breaks things right now.
-        #models.delOutdatedEntries()
+        models.delOutdatedEntries()
         print "Deleted outdated data"
 
 class Menus(webapp2.RequestHandler):

@@ -23,6 +23,7 @@ $(function() {
 	}
 	else {
 		setFilters();
+		setMenuListeners();
 	}
 
 	// Set entree listeners
@@ -125,8 +126,7 @@ function initDaySelection(hasDay) {
 		var date = datepicker.datepicker('getDate');
 		date = new Date(date.getTime() + op * 24 * 60 * 60 * 1000);
 		datepicker.datepicker('setDate', date);
-		setDay(date);
-		console.log('ondatecontrol');
+		setDay(datepicker.datepicker('getDate'));
 		refreshMeals();
 		return false;
 	});
@@ -282,6 +282,7 @@ function setFilters() {
 		var $this = $(this);
 		if ($this.is(':checked')) {
 			$("." + $(this).attr('value')).css("color", "red");
+			console.log($(this).attr('value'));
 		}
 		else {
 			$("." + $(this).attr('value')).css("color", "black");
