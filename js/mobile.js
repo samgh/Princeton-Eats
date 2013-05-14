@@ -178,7 +178,7 @@ function setAccordion() {
 		$('#lunch-header').html('lunch');
 	}
 	$('#breakfast').hide();
-	$('#dinner').hide();
+	$('#lunch').hide();
 	// Event handling
 	$('#breakfast-header').click(function() {
 		$('#breakfast').show();

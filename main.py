@@ -32,6 +32,11 @@ import models
 jinja = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
+class About(webapp2.RequestHandler):
+    def get(self):
+        template = jinja.get_template('templates/about.html')
+        self.response.out.write(template.render({}))
+
 class Entree(webapp2.RequestHandler):
     def get(self):
         entreeID = self.request.get('id')
@@ -133,9 +138,6 @@ class Search(webapp2.RequestHandler):
             'entrees':models.searchEntrees(q, ip),
             'q':q 
         }
-        for entree in params['entrees']:
-            self.response.out.write(entree.__dict__)
-        #self.response.out.write(params)
         template = jinja.get_template('templates/search.html')
         self.response.out.write(template.render(params))
 
@@ -144,7 +146,13 @@ class Timeline(webapp2.RequestHandler):
         template = jinja.get_template('templates/timeline.html')
         self.response.out.write(template.render({}))
 
+class Tutorial(webapp2.RequestHandler):
+    def get(self):
+        template = jinja.get_template('templates/tutorial.html')
+        self.response.out.write(template.render({}))
+
 app = webapp2.WSGIApplication([
+    ('/about', About),
     ('/entree', Entree),
     ('/hall', Hall),
     ('/load-data', LoadData),
@@ -155,6 +163,7 @@ app = webapp2.WSGIApplication([
     ('/mobile-search', MobileSearch),
     ('/search', Search),
     ('/timeline', Timeline),
+    ('/tutorial', Tutorial),
     ('/', Home)
 ], debug=True)
 

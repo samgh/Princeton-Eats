@@ -62,7 +62,10 @@ function validateDay(dayGet) {
 function initMealSelection(hasMeal) {
 	$('#meal-selector-form input').on('click', function() {
 		meal = $(this).attr('id');
-		console.log('onmealselect');
+		$('#meal-selector-form :radio').each(function() {
+			$('label[for=' + this.id + ']').css("background", "#ccc");
+		});
+		$('label[for=' + meal + ']').css("background", "#888");
 		refreshMeals();
 	});
 	selectMeal(hasMeal);
@@ -85,16 +88,10 @@ function selectMeal(hasMeal) {
 			}
 		}
 	}
-	mealSelectors();
-}
-
-function mealSelectors() {
-	$('#meal-selector-form :radio').click(function() {
-		$('#meal-selector-form :radio').each(function() {
-			$('label[for=' + this.id + ']').css("background", "#ccc");
-		});
-		$('label[for=' + meal + ']').css("background", "#888");
+	$('#meal-selector-form :radio').each(function() {
+		$('label[for=' + this.id + ']').css("background", "#ccc");
 	});
+	$('label[for=' + meal + ']').css("background", "#888");
 }
 
 // Init day selection
@@ -109,8 +106,7 @@ function initDaySelection(hasDay) {
 			setDay(datepicker.datepicker('getDate'));
 			refreshMeals();
 		}
-	});
-	datepicker.val(datepicker.datepicker('getDate'));
+	}).datepicker('setDate', '+0');
 
 	var d = new Date();
 	if (d.getHours() >= 20) {
@@ -142,38 +138,34 @@ function refreshMeals() {
 		meal: meal, 
 		day: day
 	};
-	console.log(meal);
-	console.log(day);
 	$("#ajax-loader").show();
-	$('#menus-table #meal').css("opacity", "0.5")
+	$('#menus-table #meal').css("opacity", "0.5");
+	var selectedDay = new Date(day);
+	if (selectedDay.getDay() == 0 || selectedDay.getDay() == 6) {
+		$("#meal-selector-form label[for='lunch']").html("Brunch");
+		$("#meal-selector-form label[for='lunch']").css("border-left", "1px solid gray");
+		$("#meal-selector-form label[for='lunch']").css("border-radius", "3px 0 0 3px");
+		$("label[for='breakfast']").hide();
+		if (meal == "breakfast") {
+			$('#meal-selector-form input[id=lunch]').trigger('click');
+			return;
+		}
+	}
+	else {
+		$("label[for='breakfast']").show();
+		$("#meal-selector-form label[for='lunch']").html("Lunch");
+		$("#meal-selector-form label[for='lunch']").css("border-left", "");
+		$("#meal-selector-form label[for='lunch']").css("border-radius", "");
+	}
 	$.ajax({
 		url: '/menus',
 		data: data,
 		success: function(r) {
-			$('#menus-container').html(r);
-			var selectedDay = new Date(day);
-			if (selectedDay.getDay() == 0 || selectedDay.getDay() == 6) {
-				//$('#breakfast').hide();
-				$("#meal-selector-form label[for='lunch']").html("Brunch");
-				$("#meal-selector-form label[for='lunch']").css("border-left", "1px solid gray");
-				$("#meal-selector-form label[for='lunch']").css("border-radius", "3px 0 0 3px");
-				$("label[for='breakfast']").hide();
-				if ($('#meal-selector-form input:radio[name=meal]')[0].checked) {
-					$('#meal-selector-form input[id=lunch]').trigger('click');
-				}
-			}
-			else {
-				//$('#breakfast').show();
-				$("label[for='breakfast']").show();
-				$("#meal-selector-form label[for='lunch']").html("Lunch");
-				$("#meal-selector-form label[for='lunch']").css("border-left", "");
-				$("#meal-selector-form label[for='lunch']").css("border-radius", "");
-			}
+			$('#meal').html(r);
 			$('#ajax-loader').hide();
 			$('#menus-table #meal').css("opacity", "1")
 			setMenuListeners();
 			setFilters();
-			mealSelectors();
 		},
 		error: function(r) {
 			console.log(r);
